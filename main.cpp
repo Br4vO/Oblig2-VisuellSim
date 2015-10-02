@@ -1,23 +1,20 @@
+
+#include "MainWindow.h"
+#include "glwidget.h"
 #include <QApplication>
-#include <QLabel>
-#include <QSurfaceFormat>
 
-#ifndef QT_NO_OPENGL
-#include "mainwidget.h"
-#endif
-
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
-    app.setApplicationName("ORF 2015");
-    app.setApplicationVersion("0.1");
-#ifndef QT_NO_OPENGL
-    MainWidget widget;
-    widget.show();
-#else
-    QLabel note("OpenGL Support required");
-    note.show();
-#endif
+    MainWindow mainWindow;
+    mainWindow.show();
+/*
+    QSurfaceFormat format;
+    format.setDepthBufferSize(24);
+    format.setStencilBufferSize(8);
+    format.setVersion(3,2);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+*/
     return app.exec();
 }
