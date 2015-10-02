@@ -6,13 +6,22 @@
 class Plan : public DisplayObject
 {
 private:
-    GLuint m_tekstur;
+    //protected i DisplayObject
+    //GLuint m_vertexBuffer;
+    //GLuint m_colorBuffer;
+    //GLuint m_indexBuffer;
+    //GLuint m_textureBuffer;
+    //GLuint m_tekstur;
+    Vertex* m_vertices;
+    int m_antallVertices;
 public:
     Plan();
     ~Plan();
-    virtual void initVertexBufferObjects();
-    virtual void draw(GLint positionAttribute, GLint normalAttribute, GLint textureAttribute=-1);
-    virtual void setTexture(GLuint texture);
+    void lesfil(std::string filnavn);
+    void data(float v[]) const;
+    void initVertexBufferObjects();
+    void draw(GLint positionAttribute, GLint normalAttribute, GLint textureAttribute=-1);
+
 };
 
 #endif // PLAN_H

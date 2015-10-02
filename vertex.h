@@ -1,16 +1,29 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include <qgl.h>
+#include <qgl.h>    // definerer GLfloat
+#include <iostream>
+#include <fstream>
 
 class Vertex
 {
+    friend std::ostream& operator<< (std::ostream&, const Vertex&);
+    friend std::istream& operator>> (std::istream&, Vertex&);
 private:
     GLfloat m_xyz[3];
-    GLfloat m_normal[3]; // Brukes også som rgb
+    //GLfloat m_rgba[4];
+    GLfloat m_normal[3];
+    /// Lager en anonym union siden vi aldri trenger både rgba og normal
+    /// Trenger riktignok heller ikke st når vi bruker rgba
+    /*union {
+        GLfloat m_rgba[4];
+        GLfloat m_normal[3];
+    };*/
     GLfloat m_st[2];
+
 public:
     Vertex();
+    ~Vertex();
     void set_xyz(GLfloat* xyz);
     void set_xyz(GLfloat x, GLfloat y, GLfloat z);
     void set_rgb(GLfloat* rgb);
@@ -19,7 +32,7 @@ public:
     void set_normal(GLfloat x, GLfloat y, GLfloat z);
     void set_st(GLfloat* st);
     void set_st(GLfloat s, GLfloat t);
-    ~Vertex();
+    void data(float v[]) const;
 };
 
 #endif // VERTEX_H
