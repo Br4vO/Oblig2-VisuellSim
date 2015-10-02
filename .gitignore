@@ -1,0 +1,61 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+#Qt-stuff
+*.user
+*.pro.user
+*.pro.user.*
+*-build-*
+Makefile
+*.Debug
+*.Release
+*.pdb
+*.exe
+*.manifest
+*.exe_manifest.rc
+*.exe_manifest.res
+*.ilk
+*.obj
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.autosave
+
+# Avoid doxygen files
+*.html
+*.css
+*.js
+*.eps
+*.tex
+*.sty
+html/
+latex/
+
+# Misc files
+*.zip
