@@ -7,8 +7,8 @@ MainWindow::MainWindow() : QMainWindow()
 {
     createMenu();
 
-    fragmentShaderFilnavn = new QString("c:/glsl/130523/fragmentshader.glsl");
-    vertexShaderFilnavn = new QString("c:/glsl/130523/vertexshader.glsl");
+    fragmentShaderFilnavn = new QString("fragmentshader.glsl");
+    vertexShaderFilnavn = new QString("vertexshader.glsl");
 
     fragmentShaderEditor = new QTextEdit();
     // Dette gir en uønsket ekstra, liten scrollbar øverst til venstre:

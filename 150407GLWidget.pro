@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     shaderprogram.cpp \
     vertex.cpp \
     glwidget.cpp \
-    texture.cpp
+    texture.cpp \
+    filklasse.cpp
 
 HEADERS  += mainwindow.h \
     displayobject.h \
@@ -30,4 +31,6 @@ HEADERS  += mainwindow.h \
     plan.h \
     shaderprogram.h \
     vertex.h \
-    texture.h
+    texture.h \
+    filklasse.h \
+    vec3.h

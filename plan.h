@@ -2,6 +2,8 @@
 #define PLAN_H
 
 #include "displayobject.h"
+#include "vertex.h"
+#include "texture.h"
 
 class Plan : public DisplayObject
 {
@@ -13,6 +15,7 @@ private:
     //GLuint m_textureBuffer;
     //GLuint m_tekstur;
     Vertex* m_vertices;
+    Texture *m_texture;
     int m_antallVertices;
 public:
     Plan();

@@ -14,8 +14,6 @@
 #include "glwidget.h"
 #include "mainWindow.h"
 #include "displayobject.h"
-#include "tetraeder.h"
-#include "xyz.h"
 #include "plan.h"
 #include "shaderprogram.h"
 #include "Texture.h"

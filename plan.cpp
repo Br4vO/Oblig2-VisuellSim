@@ -79,15 +79,15 @@ void Plan::draw(GLint positionAttribute, GLint normalAttribute, GLint textureAtt
     //qDebug() << "Plan draw" << positionAttribute << normalAttribute << textureAttribute;
     //qDebug() << sizeof(Vertex);
     // Tekstur
-    if (textureAttribute != -1)
-    {
-        //glUniform1i(colorAttribute, 0);
-        offset = 6*sizeof(GLfloat);
-        //glBindBuffer(GL_ARRAY_BUFFER, m_textureBuffer);
-        glVertexAttribPointer(textureAttribute, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<const void*> (offset));
-        //glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, m_texture);
-    }
+//    if (textureAttribute != -1)
+//    {
+//        //glUniform1i(colorAttribute, 0);
+//        offset = 6*sizeof(GLfloat);
+//        //glBindBuffer(GL_ARRAY_BUFFER, m_textureBuffer);
+//        glVertexAttribPointer(textureAttribute, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<const void*> (offset));
+//        //glActiveTexture(GL_TEXTURE0);
+//        glBindTexture(GL_TEXTURE_2D, m_texture);
+//    }
 
     //glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glDrawArrays(GL_TRIANGLES, 0, m_antallVertices);
