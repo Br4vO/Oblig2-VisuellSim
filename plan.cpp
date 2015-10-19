@@ -28,8 +28,8 @@ void Plan::lesfil(std::string filnavn)
     FilKlasse fk;
     fk.lesfil(filnavn, m_vertices, m_antallVertices);
     std::cout << "antall " << m_antallVertices << std::endl;
-    for (int i=0; i<m_antallVertices; i++)
-        std::cout << m_vertices[i] << " fra Plan::lesfil()" << std::endl;
+    //for (int i=0; i<m_antallVertices; i++)
+        //std::cout << m_vertices[i] << " fra Plan::lesfil()" << std::endl;
 }
 void Plan::data(float v[48]) const
 {

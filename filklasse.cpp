@@ -65,57 +65,38 @@ void FilKlasse::lesSosifil(std::string filnavn)
          int antallLinjer;
          int antallPunkter;
          std::string trash;
-         std::string hoydeLetters = "..HØYDE";
-         std::string logbLetters = "..NØ";
-         bool hoyde = false;
-         bool logb = false;
          inn >> antallLinjer;
          inn >> antallPunkter;
          sosiVertex = new Vertex[antallPunkter];
          int k = 0;
-         for (int i=0; i<antallLinjer; i++)
+         while (!inn.eof())
          {
-             if (hoyde == true)
+              inn >> trash;
+             if (trash == "..HOYDE")
                {
-                 inn >> sosiVertex[k].m_xyz[2];
-                 hoyde = false;
-                 std::cout << inn << std::endl;
+                //hoyde = true;
+               std::cout << "fant hoyde!" << std::endl;
+               inn >> sosiVertex[k].m_xyz[2];
+               sosiVertex[k].m_xyz[2] /= 100;
+               std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
                }
-             if (logb == true)
+             if (trash == "..NO")
                {
                  inn >> sosiVertex[k].m_xyz[0];
                  inn >> sosiVertex[k].m_xyz[1];
-                 logb = false;
-                 std::cout << inn << std::endl;
+                 sosiVertex[k].m_xyz[0] /= 10000;
+                 sosiVertex[k].m_xyz[1] /= 10000;
+                 std::cout << "fant lengde bredde!" << std::endl;
+                 std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
+                 std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
                  k++;
                }
-              inn >> trash;
-             if (trash == "..HØYDE")
-               {
-                hoyde = true;
-               std::cout << "fant hoyde!" << std::endl;
-               }
-             if (trash == "..NØ")
-               {
-                 logb = true;
-                 std::cout << "fant lengde bredde!" << std::endl;
-               }
-           std::cout << trash << std::endl;
-           std::cout << hoydeLetters << std::endl;
-           std::cout << logbLetters << std::endl;
          }
-//         for (int i=0; i<antallPunkter; i++)
-//           {
-//             for (int k=0; k < 3; k++)
-//               {
-//               std::cout << sosiVertex[i].m_xyz[k] << std::endl;
-//               std::cout << "HI" << std::endl;
-//               }
-//           }
      }
   // Lukke fil
       inn.close();
       std::cout << "Filen er lest." << std::endl;
+      skrivfil("hoydedata_skrevet_fint", sosiVertex, 150);
       //return n;
 }
 
