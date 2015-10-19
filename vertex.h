@@ -10,7 +10,6 @@ class Vertex
     friend std::ostream& operator<< (std::ostream&, const Vertex&);
     friend std::istream& operator>> (std::istream&, Vertex&);
 private:
-    GLfloat m_xyz[3];
     //GLfloat m_rgba[4];
     GLfloat m_normal[3];
     /// Lager en anonym union siden vi aldri trenger både rgba og normal
@@ -33,6 +32,8 @@ public:
     void set_st(GLfloat* st);
     void set_st(GLfloat s, GLfloat t);
     void data(float v[]) const;
+
+        GLfloat m_xyz[3];
 };
 
 #endif // VERTEX_H

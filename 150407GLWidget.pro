@@ -9,6 +9,9 @@ QT += opengl
 QT += gui
 QT += widgets
 
+CODECFORTR = UTF-8
+CODECFORSRC = UTF-8
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = 130523GLWidget

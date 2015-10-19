@@ -10,7 +10,7 @@
 Plan::Plan() : DisplayObject()
 {
     //m_vertices = new Vertex[10];
-    lesfil("C:/GLSL/150831/plandata.txt");
+    lesfil("hoydedata.txt");
    //for (int i=0; i<10; i++)
    //    m_vertices[i] = new Vertex();
 }
@@ -31,15 +31,15 @@ void Plan::lesfil(std::string filnavn)
     for (int i=0; i<m_antallVertices; i++)
         std::cout << m_vertices[i] << " fra Plan::lesfil()" << std::endl;
 }
-void Plan::data(float v[]) const
+void Plan::data(float v[48]) const
 {
-    int k=0;
+    //int k=0;
     for (int i=0; i<m_antallVertices; i++)
     {
         float vdata[8];
         m_vertices[i].data(vdata);
-        for (int j=0; j<8; j++)
-            v[k++] = vdata[j];
+//        for (int j=0; j<8; j++)
+//            v[k++] = vdata[j];
     }
 }
 void Plan::initVertexBufferObjects()
