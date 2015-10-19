@@ -96,7 +96,7 @@ void FilKlasse::lesSosifil(std::string filnavn)
   // Lukke fil
       inn.close();
       std::cout << "Filen er lest." << std::endl;
-      skrivfil("hoydedata_skrevet_fint", sosiVertex, 150);
+      //skrivfil("hoydedata_skrevet_fint", sosiVertex, 150);
       //return n;
 }
 
