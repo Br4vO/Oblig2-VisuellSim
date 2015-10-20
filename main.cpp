@@ -12,6 +12,7 @@ int main(int argc, char **argv)
     QTextCodec::codecForLocale();
 
     MainWindow mainWindow;
+    mainWindow.resize(1200, 720);
     mainWindow.show();
 /*
     QSurfaceFormat format;

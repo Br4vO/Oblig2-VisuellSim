@@ -17,7 +17,6 @@ Vertex::Vertex(GLfloat* xyz, GLfloat* rgba, GLfloat* normal, GLfloat* st)
 
 Vertex::~Vertex()
 {
-    qDebug() << "Vertex::~Vertex()";
 }
 
 void Vertex::set_xyz(GLfloat* xyz)

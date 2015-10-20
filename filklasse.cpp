@@ -3,7 +3,7 @@
 
 FilKlasse::FilKlasse()
 {
-  lesSosifil("hoydedata.txt");
+    lesSosifil("hoydedata.txt");
 }
 
 FilKlasse::~FilKlasse()
@@ -30,74 +30,77 @@ void FilKlasse::skrivfil(std::string filnavn, Vertex vertices[], const int n)
 */
 void FilKlasse::lesfil(std::string filnavn, Vertex*& vertices, int& n)
 {
-   // std::cout << "\nFilKlasse::lesfil()" << std::endl;
+    // std::cout << "\nFilKlasse::lesfil()" << std::endl;
     // Åpne eksisterende fil
-       std::ifstream inn;
-       inn.open(filnavn.c_str());
+    std::ifstream inn;
+    inn.open(filnavn.c_str());
     // Lese punkter - her: linje for linje
-       if (inn.is_open())
-       {
-           inn >> n;
-           vertices = new Vertex[n];
-           for (int i=0; i<n; i++)
-           {
-                inn >> vertices[i];
-                //std::cout << vertices[i] << std::endl;
-                //std::cout << filnavn << std::endl;
-           }
-       }
+    if (inn.is_open())
+    {
+        inn >> n;
+        vertices = new Vertex[n];
+        for (int i=0; i<n; i++)
+        {
+            inn >> vertices[i];
+            //std::cout << vertices[i] << std::endl;
+            //std::cout << filnavn << std::endl;
+        }
+    }
     // Lukke fil
-        inn.close();
-        //std::cout << "Filen er lest." << std::endl;
-        //return n;
+    inn.close();
+    //std::cout << "Filen er lest." << std::endl;
+    //return n;
 }
 
 void FilKlasse::lesSosifil(std::string filnavn)
 {
-  //std::locale();
-  std::cout << "\nFilKlasse::lesSosifil()" << std::endl;
-  // Åpne eksisterende fil
-     std::ifstream inn;
-     inn.open(filnavn.c_str());
-  // Lese punkter - her: linje for linje
-     if (inn.is_open())
-     {
-         int antallLinjer;
-         int antallPunkter;
-         std::string trash;
-         inn >> antallLinjer;
-         inn >> antallPunkter;
-         sosiVertex = new Vertex[antallPunkter];
-         int k = 0;
-         while (!inn.eof())
-         {
-              inn >> trash;
-             if (trash == "..HOYDE")
-               {
+    //std::locale();
+    std::cout << "\nFilKlasse::lesSosifil()" << std::endl;
+    // Åpne eksisterende fil
+    std::ifstream inn;
+    inn.open(filnavn.c_str());
+    int antallLinjer;
+    int antallPunkter;
+    // Lese punkter - her: linje for linje
+    if (inn.is_open())
+    {
+
+        std::string trash;
+        inn >> antallLinjer;
+        inn >> antallPunkter;
+        sosiVertex = new Vertex[antallPunkter];
+        int k = 0;
+        while (!inn.eof())
+        {
+            inn >> trash;
+            if (trash == "..HOYDE")
+            {
                 //hoyde = true;
-               std::cout << "fant hoyde!" << std::endl;
-               inn >> sosiVertex[k].m_xyz[2];
-               sosiVertex[k].m_xyz[2] /= 100;
-               std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
-               }
-             if (trash == "..NO")
-               {
-                 inn >> sosiVertex[k].m_xyz[0];
-                 inn >> sosiVertex[k].m_xyz[1];
-                 sosiVertex[k].m_xyz[0] /= 10000;
-                 sosiVertex[k].m_xyz[1] /= 10000;
-                 std::cout << "fant lengde bredde!" << std::endl;
-                 std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
-                 std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
-                 k++;
-               }
-         }
-     }
-  // Lukke fil
-      inn.close();
-      std::cout << "Filen er lest." << std::endl;
-      //skrivfil("hoydedata_skrevet_fint", sosiVertex, 150);
-      //return n;
+                std::cout << "fant hoyde!" << std::endl;
+                inn >> sosiVertex[k].m_xyz[2];
+                sosiVertex[k].m_xyz[2] /= 100;
+                std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
+            }
+            if (trash == "..NO")
+            {
+                inn >> sosiVertex[k].m_xyz[0];
+                inn >> sosiVertex[k].m_xyz[1];
+                sosiVertex[k].m_xyz[0] /= 10000;
+                sosiVertex[k].m_xyz[1] /= 10000;
+                std::cout << "fant lengde bredde!" << std::endl;
+                std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
+                std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
+                k++;
+            }
+        }
+    }
+    // Lukke fil
+    inn.close();
+    std::cout << "Filen er lest." << std::endl;
+    skrivfil("hoydedata_skrevet_fint.txt", sosiVertex, 51);
+
+    lesfil("hoydedata_skrevet_fint.txt", sosiVertex, antallPunkter);
+    //return n;
 }
 
 
