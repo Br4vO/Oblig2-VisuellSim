@@ -25,7 +25,6 @@ Plan::~Plan()
 void Plan::lesfil(std::string filnavn)
 {
     std::cout << "Plan::lesfil()";
-    FilKlasse fk;
     fk.lesfil(filnavn, m_vertices, m_antallVertices);
     std::cout << "antall " << m_antallVertices << std::endl;
     //for (int i=0; i<m_antallVertices; i++)
@@ -53,7 +52,7 @@ void Plan::initVertexBufferObjects()
     // Skal nå sende all vertex og color data til ett buffer
     glGenBuffers(1, &m_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, m_antallVertices*sizeof(Vertex), m_vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, fk.antallPunkterInnenParameter*sizeof(Vertex), fk.sosiVertex, GL_STATIC_DRAW);
 
     //glGenBuffers(1, &m_colorBuffer);
     //glBindBuffer(GL_ARRAY_BUFFER, m_colorBuffer);
@@ -90,6 +89,6 @@ void Plan::draw(GLint positionAttribute, GLint normalAttribute, GLint textureAtt
 //    }
 
     //glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glDrawArrays(GL_TRIANGLES, 0, m_antallVertices);
+    glDrawArrays(GL_TRIANGLES, 0, fk.antallPunkterInnenParameter);
     //qDebug() << "Plan::draw() " << ++i;
 }

@@ -11,9 +11,10 @@ class FilKlasse
 {
 public:
     int antall;
+    int antallPunkterInnenParameter;
     std::string ordliste[10];
 
-    Vertex* sosiVertex;
+    Vertex* sosiVertex = new Vertex[50];
 
     FilKlasse();
     ~FilKlasse();

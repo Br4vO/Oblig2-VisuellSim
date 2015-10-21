@@ -4,6 +4,7 @@
 #include "displayobject.h"
 #include "vertex.h"
 #include "texture.h"
+#include "filklasse.h"
 
 class Plan : public DisplayObject
 {
@@ -16,6 +17,7 @@ private:
     //GLuint m_tekstur;
     Vertex* m_vertices;
     Texture *m_texture;
+    FilKlasse fk;
     int m_antallVertices;
 public:
     Plan();
