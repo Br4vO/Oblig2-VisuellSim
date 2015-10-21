@@ -132,6 +132,98 @@ void FilKlasse::lesSosifil(std::string filnavn)
 
     lesfil("hoydedata_skrevet_fint.txt", sosiVertex, antallPunkterInnenParameter);
     //return n;
+    int angle;
+    double determinant;
+    bool finished = false;
+    int startPunkt = 0;
+    int venstrePunkt = 1;
+    int hoyrePunkt = 2;
+    int testPunkt = 0;
+
+    int antallTriangler = 0;
+
+    int temp;
+
+    while (finished == false)
+      {
+        angle = vinkel(sosiVertex, startPunkt, venstrePunkt, hoyrePunkt);
+
+        if (angle <= 0 || angle >= 180)
+          {
+            temp = startPunkt;
+            startPunkt = venstrePunkt;
+            venstrePunkt = temp;
+          }
+        else if (angle >0 && angle < 180)
+          {
+            while(temp == startpunkt || temp == venstrePunkt || temp == hoyrepunkt)
+              {
+                testPunkt ++;
+              }
+
+            determinant = det(sosiVertex, startPunkt, venstrePunkt, hoyrePunkt, testpunkt);
+            if (determinant <= 0)
+              {
+                triangles[antallTriangler].x =venstrePunkt;
+                triangles[antallTriangler].y =startPunkt;
+                triangles[antallTriangler].z = testPunkt;
+                antallTriangler++;
+                triangles[antallTriangler].x =testPunkt;
+                triangles[antallTriangler].y =startPunkt;
+                triangles[antallTriangler].z = hoyrePunkt;
+                antallTriangler++;
+              }
+          }
+
+
+      }
+
+//    angle = vinkel(sosiVertex, k, k+1, k+2);
+    determinant = det(sosiVertex, k,k+1,k+2,k+3);
+
+    std::cout << "DETERMINANT er " << determinant*1000 << std::endl;
+
+
+    if (angle < 0 || angle > 180)
+      {
+        //Ikke Delauney
+      }
+}
+
+float FilKlasse::vinkel(Vertex *vertex, int a, int b, int c)
+{
+  float u[2];
+  float v[2];
+
+  u[0] = (vertex[b].m_xyz[0]-vertex[a].m_xyz[0])*1000;
+  u[1] = (vertex[b].m_xyz[1]-vertex[a].m_xyz[1])*1000;
+
+  v[0] = (vertex[c].m_xyz[0]-vertex[a].m_xyz[0])*1000;
+  v[1] = (vertex[c].m_xyz[1]-vertex[a].m_xyz[1])*1000;
+
+  float alpha = ((u[0]*v[0])+(u[1]*v[1]))/(qSqrt((u[0]*u[0])+(u[1]*u[1]))*qSqrt((v[0]*v[0])+(v[1]*v[1])));
+  //Gjør om fra radianer til grader
+  alpha = alpha *(180/3.14);
+
+  std::cout << "u^2 = (" << (u[0]*u[0])+(u[1]*u[1]) << ")" << std::endl;
+  std::cout << "v^2 = (" << (v[0]*v[0])+(v[1]*v[1]) << ")" << std::endl;
+  std::cout << "u = (" << u[0] << ", " << u[1] << ")" << std::endl;
+  std::cout << "v = (" << v[0] << ", " << v[1] << ")" << std::endl;
+  std::cout << "alpha er lik " << alpha << std::endl;
+
+  return alpha;
+
+}
+
+double FilKlasse::det(Vertex *vertex, int a, int b, int c, int d)
+{
+  matrix = QMatrix4x4(vertex[a].m_xyz[0], vertex[a].m_xyz[1], (vertex[a].m_xyz[0]*vertex[a].m_xyz[0])+(vertex[a].m_xyz[1]*vertex[a].m_xyz[1]),1.0f,
+                      vertex[b].m_xyz[0], vertex[b].m_xyz[1], (vertex[b].m_xyz[0]*vertex[b].m_xyz[0])+(vertex[b].m_xyz[1]*vertex[b].m_xyz[1]),1.0f,
+                      vertex[c].m_xyz[0], vertex[c].m_xyz[1], (vertex[c].m_xyz[0]*vertex[c].m_xyz[0])+(vertex[c].m_xyz[1]*vertex[c].m_xyz[1]),1.0f,
+                      vertex[d].m_xyz[0],  vertex[d].m_xyz[1], (vertex[d].m_xyz[0]*vertex[d].m_xyz[0])+(vertex[d].m_xyz[1]*vertex[d].m_xyz[1]),1.0f);
+  double determinant;
+  determinant = matrix.determinant();
+  return determinant;
 }
 
 
