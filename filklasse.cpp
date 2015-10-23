@@ -1,5 +1,7 @@
 ﻿
 #include "filklasse.h"
+#include <iostream>
+#include <string>
 
 FilKlasse::FilKlasse()
 {
@@ -76,6 +78,8 @@ void FilKlasse::lesSosifil(std::string filnavn)
     {
 
         std::string trash;
+        std::string test;
+
         inn >> antallPunkter;
         inn >> maxX;
         inn >> minX;
@@ -83,46 +87,114 @@ void FilKlasse::lesSosifil(std::string filnavn)
         inn >> minY;
 
         int k = 0;
+        int i = 1;
+        float punktNummer;
+
         while (!inn.eof())
         {
             inn >> trash;
-            if (trash == "..HOYDE")
-            {
-                std::cout << "fant hoyde!" << std::endl;
-                inn >> sosiVertex[k].m_xyz[2];
-                sosiVertex[k].m_xyz[2] /= 100;
-                std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
-                nyHoyde = true;
-            }
-            if (trash == "..NO")
-            {
-                inn >> sosiVertex[k].m_xyz[0];
-                inn >> sosiVertex[k].m_xyz[1];
-                sosiVertex[k].m_xyz[0] /= 10000000;
-                sosiVertex[k].m_xyz[1] /= 10000000;
+              if (trash == "..HOYDE")
+              {
+                  std::cout << "fant hoyde!" << std::endl;
+                  inn >> sosiVertex[k].m_xyz[2];
+                  sosiVertex[k].m_xyz[2] /= 100;
+                  std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
+                  nyHoyde = true;
+              }
+              if (trash == "..NO")
+              {
 
-                if (sosiVertex[k].m_xyz[0] <= maxX && sosiVertex[k].m_xyz[0] >= minX && sosiVertex[k].m_xyz[1] <= maxY && sosiVertex[k].m_xyz[1] >= minY)
-                  {
-                  std::cout << "fant lengde bredde!" << std::endl;
-                  std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
-                  std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
-
-                  sosiVertex[k].set_rgb(0,1,0);
-                  sosiVertex[k].set_st(0,0);
-                  k++;
-
-                  if (nyHoyde == false)
+                  std::cout << trash << std::endl;
+                  inn >> trash;
+                  if (trash != ".KURVE" || trash != ".PUNKT")
                     {
-                      sosiVertex[k].m_xyz[2] = sosiVertex[k-1].m_xyz[2];
-                    }
+                      punktNummer = std::atoi(trash.c_str());
+                      sosiVertex[k].m_xyz[0] = punktNummer;
+                      inn >> sosiVertex[k].m_xyz[1];
+                      sosiVertex[k].m_xyz[0] /= 10000000;
+                      sosiVertex[k].m_xyz[1] /= 10000000;
+                     // std::cout << trash << std::endl;
 
-                  nyHoyde = false;
+                      if (sosiVertex[k].m_xyz[0] <= maxX && sosiVertex[k].m_xyz[0] >= minX && sosiVertex[k].m_xyz[1] <= maxY && sosiVertex[k].m_xyz[1] >= minY)
+                        {
+                        std::cout << "fant lengde bredde!" << std::endl;
+                        std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
+                        std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
+
+                        sosiVertex[k].set_rgb(0,1,0);
+                        sosiVertex[k].set_st(0,0);
+                        k++;
+
+                          if (nyHoyde == false)
+                            {
+                              sosiVertex[k].m_xyz[2] = sosiVertex[k-1].m_xyz[2];
+                            }
+
+                        nyHoyde = false;
+                        i++;
+                        }
+
                   }
             }
-        }
-        antallPunkterInnenParameter = k;
-    }
+              if (trash == ".KURVE")
+                {
+                  for (int i = 0; i < 6; i++)
+                    {
+                    inn >> trash;
+                    }
 
+                    std::cout << "fant hoyde!" << std::endl;
+                    inn >> sosiVertex[k].m_xyz[2];
+                    sosiVertex[k].m_xyz[2] /= 100;
+                    std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
+                    nyHoyde = true;
+
+                    for (int i = 0; i < 9; i++)
+                      {
+                      inn >> trash;
+                      }
+                    while (trash != ".KURVE")
+                      {
+                      //std::cout << trash << std::endl;
+                      punktNummer = std::atoi(trash.c_str());
+                      sosiVertex[k].m_xyz[0] = punktNummer;
+                      inn >> sosiVertex[k].m_xyz[1];
+                      sosiVertex[k].m_xyz[0] /= 10000000;
+                      sosiVertex[k].m_xyz[1] /= 10000000;
+                         // std::cout << trash << std::endl;
+
+                          if (sosiVertex[k].m_xyz[0] <= maxX && sosiVertex[k].m_xyz[0] >= minX && sosiVertex[k].m_xyz[1] <= maxY && sosiVertex[k].m_xyz[1] >= minY)
+                            {
+                            std::cout << "fant lengde bredde!" << std::endl;
+                            std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
+                            std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
+
+                            sosiVertex[k].set_rgb(0,1,0);
+                            sosiVertex[k].set_st(0,0);
+                            k++;
+
+                              if (nyHoyde == false)
+                                {
+                                  sosiVertex[k].m_xyz[2] = sosiVertex[k-1].m_xyz[2];
+                                }
+
+                            nyHoyde = false;
+                            i++;
+                            }
+                       inn >> trash;
+                       //std::cout << trash << std::endl;
+                       if (trash == ".SLUTT")
+                         {
+                           break;
+                         }
+                      }
+
+                   }
+        }
+
+       antallPunkterInnenParameter = k;
+       std::cout << antallPunkterInnenParameter << std::endl;
+      }
 
 
     // Lukke fil
@@ -135,14 +207,16 @@ void FilKlasse::lesSosifil(std::string filnavn)
     int angle;
     double determinant;
     bool finished = false;
+
+    int antallTriangler = 0;
+    int triangelNummer = 0;
+
+    int temp;
+
     int startPunkt = 0;
     int venstrePunkt = 1;
     int hoyrePunkt = 2;
     int testPunkt = 0;
-
-    int antallTriangler = 0;
-
-    int temp;
 
     while (finished == false)
       {
@@ -156,12 +230,12 @@ void FilKlasse::lesSosifil(std::string filnavn)
           }
         else if (angle >0 && angle < 180)
           {
-            while(temp == startpunkt || temp == venstrePunkt || temp == hoyrepunkt)
+            while(testPunkt == startPunkt || testPunkt == venstrePunkt || testPunkt == hoyrePunkt)
               {
                 testPunkt ++;
               }
 
-            determinant = det(sosiVertex, startPunkt, venstrePunkt, hoyrePunkt, testpunkt);
+            determinant = det(sosiVertex, startPunkt, venstrePunkt, hoyrePunkt, testPunkt);
             if (determinant <= 0)
               {
                 triangles[antallTriangler].x =venstrePunkt;
@@ -172,6 +246,11 @@ void FilKlasse::lesSosifil(std::string filnavn)
                 triangles[antallTriangler].y =startPunkt;
                 triangles[antallTriangler].z = hoyrePunkt;
                 antallTriangler++;
+
+                venstrePunkt = triangles[triangelNummer].x;
+                startPunkt = triangles[triangelNummer].y;
+                hoyrePunkt = triangles[triangelNummer].z;
+                triangelNummer ++;
               }
           }
 
@@ -179,7 +258,7 @@ void FilKlasse::lesSosifil(std::string filnavn)
       }
 
 //    angle = vinkel(sosiVertex, k, k+1, k+2);
-    determinant = det(sosiVertex, k,k+1,k+2,k+3);
+//    determinant = det(sosiVertex, k,k+1,k+2,k+3);
 
     std::cout << "DETERMINANT er " << determinant*1000 << std::endl;
 

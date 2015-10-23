@@ -17,8 +17,8 @@ public:
     int antallPunkterInnenParameter;
     std::string ordliste[10];
 
-    Vertex* sosiVertex = new Vertex[50];
-    Vec3 triangles;
+    Vertex* sosiVertex = new Vertex[100000];
+    Vec3 triangles[150];
     QMatrix4x4 matrix;
 
     FilKlasse();

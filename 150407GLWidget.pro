@@ -9,6 +9,8 @@ QT += opengl
 QT += gui
 QT += widgets
 
+CONFIG +=c++11
+
 CODECFORTR = UTF-8
 CODECFORSRC = UTF-8
 
