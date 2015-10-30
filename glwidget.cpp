@@ -184,7 +184,7 @@ void GLWidget::paintGL()
 
     m_matrix.setToIdentity();
     m_matrix.perspective(60, 4.0/3.0, 0.1, 100.0);
-    m_matrix.translate(0, 0, -2);
+    m_matrix.translate(-68, -3, -2);
 
     // m er ordnet radvis, constData() returnerer kolonnevis
     // Vi må likevel sette transpose parameteren til GL_FALSE

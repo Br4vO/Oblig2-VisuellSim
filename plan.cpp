@@ -89,6 +89,6 @@ void Plan::draw(GLint positionAttribute, GLint normalAttribute, GLint textureAtt
 //    }
 
     //glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glDrawArrays(GL_TRIANGLES, 0, fk.antallPunkterInnenParameter);
+    glDrawArrays(GL_TRIANGLES,0, fk.antallPunkterInnenParameter);
     //qDebug() << "Plan::draw() " << ++i;
 }
