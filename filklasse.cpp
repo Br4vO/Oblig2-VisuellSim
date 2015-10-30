@@ -188,7 +188,8 @@ void FilKlasse::lesSosifil(std::string filnavn)
                       }
 
                    }
-              if (k < 20)
+
+              if (k > 20)
                 {
                   break;
                 }
