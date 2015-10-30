@@ -118,7 +118,7 @@ qDebug() << "GLWidget initialize " << m_positionAttribute  << m_colorAttribute <
     glEnableVertexAttribArray(m_colorAttribute);
     glEnableVertexAttribArray(m_textureAttribute);
 
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+    glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
 
