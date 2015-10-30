@@ -203,70 +203,7 @@ void FilKlasse::lesSosifil(std::string filnavn)
     skrivfil("hoydedata_skrevet_fint.txt", sosiVertex, antallPunkterInnenParameter);
 
     lesfil("hoydedata_skrevet_fint.txt", sosiVertex, antallPunkterInnenParameter);
-    //return n;
-    //    int angle;
-    //    double determinant;
-    //    bool finished = false;
 
-    //    int antallTriangler = 0;
-    //    int triangelNummer = 0;
-
-    //    int temp;
-
-    //    int startPunkt = 0;
-    //    int venstrePunkt = 1;
-    //    int hoyrePunkt = 2;
-    //    int testPunkt = 0;
-
-    //    while (finished == false)
-    //      {
-    //        angle = vinkel(sosiVertex, startPunkt, venstrePunkt, hoyrePunkt);
-
-    //        if (angle <= 0 || angle >= 180)
-    //          {
-    //            temp = startPunkt;
-    //            startPunkt = venstrePunkt;
-    //            venstrePunkt = temp;
-    //          }
-    //        else if (angle >0 && angle < 180)
-    //          {
-    //            while(testPunkt == startPunkt || testPunkt == venstrePunkt || testPunkt == hoyrePunkt)
-    //              {
-    //                testPunkt ++;
-    //              }
-
-    //            determinant = det(sosiVertex, startPunkt, venstrePunkt, hoyrePunkt, testPunkt);
-    //            if (determinant <= 0)
-    //              {
-    //                triangles[antallTriangler].x =venstrePunkt;
-    //                triangles[antallTriangler].y =startPunkt;
-    //                triangles[antallTriangler].z = testPunkt;
-    //                antallTriangler++;
-    //                triangles[antallTriangler].x =testPunkt;
-    //                triangles[antallTriangler].y =startPunkt;
-    //                triangles[antallTriangler].z = hoyrePunkt;
-    //                antallTriangler++;
-
-    //                venstrePunkt = triangles[triangelNummer].x;
-    //                startPunkt = triangles[triangelNummer].y;
-    //                hoyrePunkt = triangles[triangelNummer].z;
-    //                triangelNummer ++;
-    //              }
-    //          }
-
-
-    //      }
-
-    ////    angle = vinkel(sosiVertex, k, k+1, k+2);
-    ////    determinant = det(sosiVertex, k,k+1,k+2,k+3);
-
-    //    std::cout << "DETERMINANT er " << determinant*1000 << std::endl;
-
-
-    //    if (angle < 0 || angle > 180)
-    //      {
-    //        //Ikke Delauney
-    //      }
 }
 
 float FilKlasse::vinkel(Vertex *vertex, int a, int b, int c)
