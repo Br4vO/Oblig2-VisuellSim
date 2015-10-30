@@ -5,7 +5,6 @@
 
 FilKlasse::FilKlasse()
 {
-    lesSosifil("hoydedata.txt");
 }
 
 FilKlasse::~FilKlasse()
@@ -187,10 +186,9 @@ void FilKlasse::lesSosifil(std::string filnavn)
                 }
 
             }
-            std::cout << "k er " << k << ". ";
 
         }
-        std:: cout << "hva er k nå? : " << k <<". ";
+        std:: cout << "hva er k nå? : " << k <<". " << std::endl;
 
         antallPunkterInnenParameter = k;
         std::cout << antallPunkterInnenParameter << std::endl;

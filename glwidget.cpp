@@ -183,8 +183,8 @@ void GLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     m_matrix.setToIdentity();
-    m_matrix.perspective(60, 4.0/3.0, 0.1, 100.0);
-    m_matrix.translate(-68, -3, -2);
+    m_matrix.perspective(120, 4.0/3.0, 0.1, 1000000.0);
+    m_matrix.translate(-68, -3, -1200);
 
     // m er ordnet radvis, constData() returnerer kolonnevis
     // Vi må likevel sette transpose parameteren til GL_FALSE

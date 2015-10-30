@@ -44,10 +44,7 @@ void Plan::data(float v[48]) const
 void Plan::initVertexBufferObjects()
 {
     initializeOpenGLFunctions();
-
-    // Unødvendig å gjøre dette, siden m_vertices kan sendes inn uten cast med glBufferData
-    float* bufferData = new float[48];
-    data(bufferData);
+    fk.lesSosifil("hoydedata.txt");
 
     // Skal nå sende all vertex og color data til ett buffer
     glGenBuffers(1, &m_vertexBuffer);
@@ -89,6 +86,6 @@ void Plan::draw(GLint positionAttribute, GLint normalAttribute, GLint textureAtt
 //    }
 
     //glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glDrawArrays(GL_TRIANGLES,0, fk.antallPunkterInnenParameter);
+    glDrawArrays(GL_LINES,0, fk.antallPunkterInnenParameter);
     //qDebug() << "Plan::draw() " << ++i;
 }
