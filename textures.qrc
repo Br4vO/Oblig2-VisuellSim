@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>cube.png</file>
+        <file>heightmap.bmp</file>
+    </qresource>
+</RCC>
