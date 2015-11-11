@@ -46,7 +46,7 @@ MainWidget::MainWidget(QWidget *parent) :
 //  Sleep(1500);        //Obs - Windows specific
 //  mExplosionSound->play();
 //  Sleep(1500);        //Obs - Windows specific
-  mLaserSound->play();
+ // mLaserSound->play();
 }
 
 MainWidget::~MainWidget()
@@ -441,9 +441,10 @@ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     cube->drawCubeGeometry(&program);
 
     matrix.setToIdentity();
-    matrix.translate(-68,-500,-3);
+    matrix.scale(3);
+    matrix.translate(-68000,-2,-3400);
     //matrix.rotate(mCamera->rotation);
-    matrix.scale(1);
+
 
     // Set projection matrix
     program.setUniformValue("pMatrix", mCamera->projection);

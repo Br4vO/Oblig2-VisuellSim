@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     Vector3.cpp \
     heightmap.cpp \
     GroundHeight.cpp \
-    trysil.cpp
+    trysil.cpp \
+    Triangulate.cpp
 
 SOURCES += \
     mainwidget.cpp \
@@ -45,7 +46,8 @@ HEADERS += \
     vector3.h \
     heightmap.h \
     GroundHeight.h \
-    trysil.h
+    trysil.h \
+    Triangulate.h
 
 RESOURCES += \
     shaders.qrc \

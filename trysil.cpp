@@ -50,6 +50,7 @@ void trysil::lesSosifil(std::string filnavn)
             {
                 std::cout << "fant hoyde!" << std::endl;
                 inn >> sosiVertex[k].m_xyz[1];
+                sosiVertex[k].m_xyz[1] /= 10;
                 std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
                 nyHoyde = true;
             }
@@ -62,8 +63,8 @@ void trysil::lesSosifil(std::string filnavn)
                     punktNummer = std::atoi(trash.c_str());
                     sosiVertex[k].m_xyz[0] = punktNummer;
                     inn >> sosiVertex[k].m_xyz[2];
-                    sosiVertex[k].m_xyz[0] /= 10000000;
-                    sosiVertex[k].m_xyz[2] /= 10000000;
+                    sosiVertex[k].m_xyz[0] /= 10000;
+                    sosiVertex[k].m_xyz[2] /= 10000;
                     // std::cout << trash << std::endl;
 
                     if (sosiVertex[k].m_xyz[0] <= maxX && sosiVertex[k].m_xyz[0] >= minX && sosiVertex[k].m_xyz[2] <= maxY && sosiVertex[k].m_xyz[2] >= minY)
@@ -95,7 +96,7 @@ void trysil::lesSosifil(std::string filnavn)
 
                 std::cout << "fant hoyde!" << std::endl;
                 inn >> sosiVertex[k].m_xyz[1];
-                sosiVertex[k].m_xyz[1];
+                sosiVertex[k].m_xyz[1] /= 10;
                 std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
                 //nyHoyde = true;
 
@@ -179,14 +180,15 @@ void trysil::lesSosifil(std::string filnavn)
 //          break;
 //         }
 //      }
-//    for (int i =0; i <indexCount; i++)
-//      {
-//             // std::cout << "mMapData[" << i << "] = (" << mMapData[indices[i]].position[0] << ", " << mMapData[indices[i]].position[1] << ", " << mMapData[indices[i]].position[2] << ")" << std::endl;
-//      }
+
     for(int i = 0; i < mapSize; i++)
      {
       indices[i] = i;
      }
+    for (int i =0; i <mapSize; i++)
+      {
+              std::cout << "sosiVertex[" << i << "] = (" << sosiVertex[indices[i]].m_xyz[0] << ", " << sosiVertex[indices[i]].m_xyz[1] << ", " << sosiVertex[indices[i]].m_xyz[2] << ")" << std::endl;
+      }
 
     arrayBuf.create();
     indexBuf.create();
