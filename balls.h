@@ -20,10 +20,10 @@ struct Punkt3d
     float m_T;
 };
 
-class balls  : protected QOpenGLFunctions
+class Balls  : protected QOpenGLFunctions
 {
 public:
-    balls();
+    Balls();
 
     GLfloat m_x;
     GLfloat m_y;
@@ -37,17 +37,18 @@ public:
     Punkt3d ballvertex[8000];
     int antall;
 
+    void createBall();
     void lesKoordinater(const char *filnavn);
     void triangle(const Punkt3d &a, const Punkt3d &b, const Punkt3d &c);
     void tetrahedron(int n);
     void normalize (Punkt3d &p);
     void divide_triangle(Punkt3d &a, Punkt3d &b, Punkt3d &c, int n);
     int hentAntall (){return antall;}
+    void drawBall(QOpenGLShaderProgram *program);
+
 private:
     /// Array buffer for vertex data for heightmap.
     QOpenGLBuffer arrayBuf;
-    /// Index buffer for indices data for heightmap.
-    QOpenGLBuffer indexBuf;
     ///Light position
     GLuint m_lightPosUniform;
     /// Ambient color
@@ -69,7 +70,6 @@ private:
     /// Specular color
     QVector3D specularColor = QVector3D(1.0f, 0.0f, 0.0f);
 
-    void drawBall(QOpenGLShaderProgram *program);
 };
 
 #endif // BALLS_H

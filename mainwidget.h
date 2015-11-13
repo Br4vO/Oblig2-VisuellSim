@@ -9,6 +9,7 @@
 #include "heightmap.h"
 #include "GroundHeight.h"
 #include "trysil.h"
+#include "balls.h"
 
 #include <QGLWidget>
 #include <QOpenGLFunctions>
@@ -20,6 +21,7 @@
 #include <QOpenGLTexture>
 #include <QKeyEvent>
 
+class Balls;
 /// Makes camera class for use in mainwidget
 class Camera;
 /// Makes statemanager class for use in mainwidget
@@ -62,6 +64,8 @@ public:
     Camera *mCamera;
     /// Peker til statemanger
     stateManager *manage;
+    ///Pointer to the Balls class
+    Balls *mBalls;
     /// Makes transform which hold data for player
     Transform trans;
     /// Position mousebutton was pressed

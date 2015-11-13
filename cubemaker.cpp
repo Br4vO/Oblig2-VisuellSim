@@ -138,7 +138,6 @@ void cubemaker::drawCubeGeometry(QOpenGLShaderProgram *program)
     program->setUniformValue(m_diffuseColorUniform, diffuseColor);
     program->setUniformValue(m_specularColorUniform, specularColor);
 
-
     // Draw cube geometry using indices from VBO 1
     glDrawElements(GL_TRIANGLE_STRIP, 34, GL_UNSIGNED_SHORT, 0);
 }

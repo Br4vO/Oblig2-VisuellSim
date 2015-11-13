@@ -132,7 +132,6 @@ void HeightMap::drawPlaneGeometry(QOpenGLShaderProgram *program)
   program->setUniformValue(m_diffuseColorUniform, diffuseColor);
   program->setUniformValue(m_specularColorUniform, specularColor);
 
-
   // Draw cube geometry using indices from VBO 1
   //glDrawElements(GL_LINE_STRIP, 32764, GL_UNSIGNED_SHORT, 0);
   glDrawElements(GL_TRIANGLE_STRIP, 32764, GL_UNSIGNED_SHORT, 0);
