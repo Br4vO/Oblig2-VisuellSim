@@ -24,7 +24,7 @@ QVector3D GroundHeight::findGround(QVector3D &playerPos)
             float tempY = mMap->mMapData[i].position.distanceToPoint(playerPos);
             if (tempY < lastRegisteredDistance)
               {
-                playerPos.setY(mMap->mMapData[i].position.y()-0.75);
+                playerPos.setY(mMap->mMapData[i].position.y()-1);
                 lastRegisteredDistance = tempY;
                 //qDebug() << "playerposition = " << playerPos;
               }

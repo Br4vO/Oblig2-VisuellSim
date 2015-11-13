@@ -21,7 +21,7 @@ void Balls::createBall()
     tetrahedron(3);
     arrayBuf.create();
     arrayBuf.bind();
-    arrayBuf.allocate(ballvertex, antall * sizeof(GLfloat));
+    arrayBuf.allocate(ballvertex, 8000 * sizeof(GLfloat));
 }
 
 void Balls::lesKoordinater(const char *filnavn)
@@ -152,6 +152,6 @@ void Balls::drawBall(QOpenGLShaderProgram *program)
     program->setUniformValue(m_specularColorUniform, specularColor);
 
     // Draw cube geometry using indices from VBO 1
-    glDrawArrays(GL_TRIANGLES, 0, antall);
+    glDrawArrays(GL_TRIANGLES, 0, 8000);
 }
 

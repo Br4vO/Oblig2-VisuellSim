@@ -12,7 +12,7 @@ HeightMap::HeightMap() : indexBuf(QOpenGLBuffer::IndexBuffer)
 
 void HeightMap::readHeightMap()
 {
-  QImage* image = new QImage("D://Ny mappe//Jottacloud//Skole Semester 5//Visuell Simulering//Oblig 2//build-ORF-Desktop_Qt_5_5_0_MinGW_32bit-Debug//heightmap.bmp");
+  QImage* image = new QImage("D://Spillmotorarkitektur//build-Sound-Desktop_Qt_5_4_2_MinGW_32bit2-Debug//heightmap.bmp");
   //std::cout << "heightmap is nonexcisting = " << image->isNull() << std::endl;
   int width = image->width();
     std::cout << "width = " << width << std::endl;
@@ -27,7 +27,7 @@ void HeightMap::readHeightMap()
           QRgb *color = new QRgb(image->pixel(i,j));
           int redColor = qRed(*color);
           //std::cout << "Red = " << redColor << std::endl;
-          mMapData[(width*i)+j].position = QVector3D(i/1.0f-0.64f,2.55-(redColor/100.0f),j/1.0f-0.64f);
+          mMapData[(width*i)+j].position = QVector3D(i/1.0f-0.64f,2.55-(redColor/20.0f),j/1.0f-0.64f);
           mMapData[(width*i)+j].normal = QVector3D(float(j)/height, float(i)/height,  (10.0f+j)/8);
           //mMapData[(width*i)+j].normal = QVector3D(1, 0, 1);
           //std::cout << "MapData" << (width*i)+j << "(x,y,z) = (" << i/100.0f << ", " << redColor/1000.0f << ", " << j/100.0f << ")" << std::endl;
