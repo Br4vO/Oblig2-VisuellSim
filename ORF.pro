@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     heightmap.cpp \
     GroundHeight.cpp \
     trysil.cpp \
-    Triangulate.cpp
+    Triangulate.cpp \
+    balls.cpp
 
 SOURCES += \
     mainwidget.cpp \
@@ -37,7 +38,8 @@ HEADERS += \
     heightmap.h \
     GroundHeight.h \
     trysil.h \
-    Triangulate.h
+    Triangulate.h \
+    balls.h
 
 RESOURCES += \
     shaders.qrc \

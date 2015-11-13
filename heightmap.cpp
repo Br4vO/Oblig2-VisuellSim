@@ -12,7 +12,7 @@ HeightMap::HeightMap() : indexBuf(QOpenGLBuffer::IndexBuffer)
 
 void HeightMap::readHeightMap()
 {
-  QImage* image = new QImage("D://Spillmotorarkitektur//ORF_2015//heightmap.bmp");
+  QImage* image = new QImage("D://Ny mappe//Jottacloud//Skole Semester 5//Visuell Simulering//Oblig 2//build-ORF-Desktop_Qt_5_5_0_MinGW_32bit-Debug//heightmap.bmp");
   //std::cout << "heightmap is nonexcisting = " << image->isNull() << std::endl;
   int width = image->width();
     std::cout << "width = " << width << std::endl;

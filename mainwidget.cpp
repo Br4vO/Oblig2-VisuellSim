@@ -15,36 +15,6 @@ MainWidget::MainWidget(QWidget *parent) :
     texture(0),
     angularSpeed(0)
 {
-
-
-//  //Two sounds...
-//  SoundSource* mExplosionSound;
-//  SoundSource* mLaserSound;
-//  SoundSource* mStereoSound;
-
-//  //makes the soundmanager
-//  //it is a Singleton
-//  SoundManager::getInstance()->init();
-
-
-//  //loads the sounds
-//  mExplosionSound = SoundManager::getInstance()->createSource(
-//              "Explosion", Vector3(-10.0f, 0.0f, 0.0f),
-//              "bentzexplosion.wav", false, 1.0f);
-//  mLaserSound = SoundManager::getInstance()->createSource(
-//              "Laser", Vector3(0.0f, 0.0f, 0.0f),
-//              "bentzlaser.wav", true, 1.0f);
-
-//  mStereoSound = SoundManager::getInstance()->createSource(
-//              "Stereo", Vector3(0.0f, 0.0f, 0.0f),
-//              "stereo.wav", false, 1.0f);
-
-  //plays the sounds
-//  mStereoSound->play();
-//  Sleep(1500);        //Obs - Windows specific
-//  mExplosionSound->play();
-//  Sleep(1500);        //Obs - Windows specific
- // mLaserSound->play();
 }
 
 MainWidget::~MainWidget()
