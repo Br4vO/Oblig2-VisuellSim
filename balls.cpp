@@ -8,6 +8,14 @@
 
 using namespace std;
 
+/// Struct which holds position, texturcoordinates and normals for each vertex.
+struct VertexData
+{
+    QVector3D position;
+    QVector2D texCoord;
+    QVector3D normal;
+};
+
 balls::balls() : m_x(0.0f), m_y(0.0f), m_z(0.0f), m_r(0.5f), m_teta(0.0f), m_retning(-1.0f)
 {
     antall = 0;
@@ -94,5 +102,58 @@ void balls::divide_triangle(Punkt3d &a, Punkt3d &b, Punkt3d &c, int n)
       divide_triangle(v1, v2, v3, n-1);
   }
   else triangle(a, b, c);
+}
+
+void balls::drawBall(QOpenGLShaderProgram *program)
+{
+    // Tell OpenGL which VBOs to use
+
+    indexBuf.bind();
+    arrayBuf.bind();
+    // Offset for position
+    quintptr offset = 0;
+
+    // Tell OpenGL programmable pipeline how to locate vertex position data
+    int vertexLocation = program->attributeLocation("a_position");
+    program->enableAttributeArray(vertexLocation);
+    program->setAttributeBuffer(vertexLocation, GL_FLOAT, offset, 3, sizeof(VertexData));
+
+    // Offset for texture coordinate
+    offset += sizeof(QVector3D);
+
+    // Tell OpenGL programmable pipeline how to locate vertex texture coordinate data
+    int texcoordLocation = program->attributeLocation("a_texcoord");
+    program->enableAttributeArray(texcoordLocation);
+    program->setAttributeBuffer(texcoordLocation, GL_FLOAT, offset, 2, sizeof(VertexData));
+
+    // Offset for normals coordinate
+    offset += sizeof(QVector2D);
+
+    int normalLocation = program->attributeLocation("a_normal");
+    program->enableAttributeArray(normalLocation);
+    program->setAttributeBuffer(normalLocation, GL_FLOAT, offset, 3, sizeof(VertexData));
+
+     // qDebug() << vertexLocation << " " << texcoordLocation << " " << normalLocation;
+    //Enables the light:
+    //These first lines should be in an init-function
+    m_lightPosUniform = program->uniformLocation("lightPosition");
+    m_ambientColorUniform = program->uniformLocation("ambientColor");
+    m_diffuseColorUniform = program->uniformLocation("diffuseColor");
+    m_specularColorUniform = program->uniformLocation("specularColor");
+
+    program->enableAttributeArray(m_lightPosUniform);
+    program->enableAttributeArray(m_ambientColorUniform);
+    program->enableAttributeArray(m_diffuseColorUniform);
+    program->enableAttributeArray(m_specularColorUniform);
+
+    program->setUniformValue(m_lightPosUniform, lightPos);
+    //m_program->setUniformValue(m_ambientColorUniform, tempAmbient);
+    program->setUniformValue(m_ambientColorUniform, ambientColor);
+    program->setUniformValue(m_diffuseColorUniform, diffuseColor);
+    program->setUniformValue(m_specularColorUniform, specularColor);
+
+
+    // Draw cube geometry using indices from VBO 1
+    glDrawArrays(GL_TRIANGLES, 0, antall);
 }
 

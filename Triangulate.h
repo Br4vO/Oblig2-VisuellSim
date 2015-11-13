@@ -16,25 +16,7 @@
 /**********************************************************************/
 
 #ifndef TRIANGULATE_H
-
 #define TRIANGULATE_H
-
-/*
-****************************************************************
-/** Static class to triangulate any contour/polygon efficiently **
-/** You should replace Vector2d with whatever your own Vector   **
-/** class might be.  Does not support polygons with holes.      **
-/** Uses STL vectors to represent a dynamic array of vertices.  **
-/** This code snippet was submitted to FlipCode.com by          **
-/** John W. Ratcliff (jratcliff@verant.com) on July 22, 2000    **
-/** I did not write the original code/algorithm for this        **
-/** this triangulator, in fact, I can't even remember where I   **
-/** found it in the first place.  However, I did rework it into **
-/** the following black-box static class so you can make easy   **
-/** use of it in your own code.  Simply replace Vector2d with   **
-/** whatever your own Vector implementation might be.           **
-/****************************************************************
-*/
 
 
 #include <vector>  // Include STL vector class.
