@@ -10,8 +10,6 @@
 #include <QOpenGLBuffer>
 #include <QMatrix4x4>
 
-#include "Triangulate.h"
-
 struct VertexDataTrysil
 {
     GLfloat m_xyz[3];
@@ -19,7 +17,6 @@ struct VertexDataTrysil
     QVector3D normal;
 };
 
-class Triangulate;
 
 class trysil : protected QOpenGLFunctions
 {
@@ -29,8 +26,6 @@ public:
   void drawTrysilGeometry(QOpenGLShaderProgram *program);
 
 private:
-  Triangulate* tri;
-
   VertexDataTrysil* sosiVertex = new VertexDataTrysil[100000];
   /// Index buffer for indices data for heightmap.
   QOpenGLBuffer indexBuf;
