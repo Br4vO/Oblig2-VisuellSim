@@ -48,10 +48,10 @@ void trysil::lesSosifil(std::string filnavn)
             inn >> trash;
             if (trash == "..HOYDE")
             {
-                std::cout << "fant hoyde!" << std::endl;
+                //std::cout << "fant hoyde!" << std::endl;
                 inn >> sosiVertex[k].m_xyz[1];
                 sosiVertex[k].m_xyz[1] /= 10;
-                std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
+                //std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
                 nyHoyde = true;
             }
             if (trash == "..NO")
@@ -69,9 +69,9 @@ void trysil::lesSosifil(std::string filnavn)
 
                     if (sosiVertex[k].m_xyz[0] <= maxX && sosiVertex[k].m_xyz[0] >= minX && sosiVertex[k].m_xyz[2] <= maxY && sosiVertex[k].m_xyz[2] >= minY)
                     {
-                        std::cout << "fant lengde bredde!" << std::endl;
-                        std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
-                        std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
+                        //std::cout << "fant lengde bredde!" << std::endl;
+                        //std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
+                        //std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
 
                         sosiVertex[k].normal = QVector3D(0.0f,1.0f,0.0f);
                         sosiVertex[k].texCoord= QVector2D(0.0f,0.0f);
@@ -94,10 +94,10 @@ void trysil::lesSosifil(std::string filnavn)
                     inn >> trash;
                 }
 
-                std::cout << "fant hoyde!" << std::endl;
+                //std::cout << "fant hoyde!" << std::endl;
                 inn >> sosiVertex[k].m_xyz[1];
                 sosiVertex[k].m_xyz[1] /= 10;
-                std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
+                //std::cout << "Punkt " << k << " sin z = " << sosiVertex[k].m_xyz[2] << std::endl;
                 //nyHoyde = true;
 
                 for (int i = 0; i < 9; i++)
@@ -120,9 +120,9 @@ void trysil::lesSosifil(std::string filnavn)
 
                     if (sosiVertex[k].m_xyz[0] <= maxX && sosiVertex[k].m_xyz[0] >= minX && sosiVertex[k].m_xyz[1] <= maxY && sosiVertex[k].m_xyz[1] >= minY)
                     {
-                        std::cout << "fant lengde bredde!" << std::endl;
-                        std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
-                        std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
+                        //std::cout << "fant lengde bredde!" << std::endl;
+                        //std::cout << "Punkt " << k << " sin x = " << sosiVertex[k].m_xyz[0] << std::endl;
+                        //std::cout << "Punkt " << k << " sin y = " << sosiVertex[k].m_xyz[1] << std::endl;
 
                         sosiVertex[k].normal = QVector3D(0.0f,1.0f,0.0f);
                         sosiVertex[k].texCoord= QVector2D(0.0f,0.0f);
@@ -133,7 +133,7 @@ void trysil::lesSosifil(std::string filnavn)
                         nyHoyde = false;
                     }
                     inn >> trash;
-                    std::cout << trash << std::endl;
+                    //std::cout << trash << std::endl;
                     if (trash == ".SLUTT")
                     {
                         break;
