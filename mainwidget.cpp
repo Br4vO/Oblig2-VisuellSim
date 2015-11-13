@@ -5,8 +5,6 @@
 #include <QKeyEvent>
 #include <QWidget>
 
-#include "SoundManager.h"
-#include "SoundSource.h"
 #include "Vector3.h"
 
 #include <math.h>
@@ -19,27 +17,27 @@ MainWidget::MainWidget(QWidget *parent) :
 {
 
 
-  //Two sounds...
-  SoundSource* mExplosionSound;
-  SoundSource* mLaserSound;
-  SoundSource* mStereoSound;
+//  //Two sounds...
+//  SoundSource* mExplosionSound;
+//  SoundSource* mLaserSound;
+//  SoundSource* mStereoSound;
 
-  //makes the soundmanager
-  //it is a Singleton
-  SoundManager::getInstance()->init();
+//  //makes the soundmanager
+//  //it is a Singleton
+//  SoundManager::getInstance()->init();
 
 
-  //loads the sounds
-  mExplosionSound = SoundManager::getInstance()->createSource(
-              "Explosion", Vector3(-10.0f, 0.0f, 0.0f),
-              "bentzexplosion.wav", false, 1.0f);
-  mLaserSound = SoundManager::getInstance()->createSource(
-              "Laser", Vector3(0.0f, 0.0f, 0.0f),
-              "bentzlaser.wav", true, 1.0f);
+//  //loads the sounds
+//  mExplosionSound = SoundManager::getInstance()->createSource(
+//              "Explosion", Vector3(-10.0f, 0.0f, 0.0f),
+//              "bentzexplosion.wav", false, 1.0f);
+//  mLaserSound = SoundManager::getInstance()->createSource(
+//              "Laser", Vector3(0.0f, 0.0f, 0.0f),
+//              "bentzlaser.wav", true, 1.0f);
 
-  mStereoSound = SoundManager::getInstance()->createSource(
-              "Stereo", Vector3(0.0f, 0.0f, 0.0f),
-              "stereo.wav", false, 1.0f);
+//  mStereoSound = SoundManager::getInstance()->createSource(
+//              "Stereo", Vector3(0.0f, 0.0f, 0.0f),
+//              "stereo.wav", false, 1.0f);
 
   //plays the sounds
 //  mStereoSound->play();
@@ -269,7 +267,7 @@ void MainWidget::updateMovement()
 
       mCamera->mViewMatrix.translate(QVector3D(0.0f, -(temp.y()-geometries->mTrans.mPosition.y()), 0.0f));
       geometries->mTrans.mPosition = temp;
-      SoundManager::getInstance()->updateListener(Vector3(temp.x(),temp.y(),temp.z()),Vector3(0.0f,0.0f,0.0f),Vector3(0.0f,0.0f,1.0f),Vector3(0.0f,1.0f,0.0f));
+      //SoundManager::getInstance()->updateListener(Vector3(temp.x(),temp.y(),temp.z()),Vector3(0.0f,0.0f,0.0f),Vector3(0.0f,0.0f,1.0f),Vector3(0.0f,1.0f,0.0f));
   }
   //mCamera->mViewMatrix.translate(0.01f, 0.0f, 0.0f);
 

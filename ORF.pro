@@ -9,20 +9,12 @@ equals(QT_MINOR_VERSION, 4): QMAKE_CXXFLAGS += -std=c++11
 #If Qt 5.5 use this:
 greaterThan(QT_MINOR_VERSION, 4): CONFIG += c++11
 
-win32 {
-    INCLUDEPATH += .\\include
-    INCLUDEPATH += D:\Spillmotorarkitektur\openal-soft-1.16.0\\include\\AL
-    LIBS *= D:\Spillmotorarkitektur\openal-soft-1.16.0\\libs\\libOpenAL32.dll.a
-}
-
 
 SOURCES += main.cpp \
     camera.cpp \
     cubemaker.cpp \
     statemanager.cpp \
     FileHandler.cpp \
-    SoundManager.cpp \
-    SoundSource.cpp \
     Vector3.cpp \
     heightmap.cpp \
     GroundHeight.cpp \
@@ -41,8 +33,6 @@ HEADERS += \
     statemanager.h \
     transform.h \
     FileHandler.h \
-    SoundManager.h \
-    SoundSource.h \
     vector3.h \
     heightmap.h \
     GroundHeight.h \
