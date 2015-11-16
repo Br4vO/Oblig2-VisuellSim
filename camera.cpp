@@ -25,7 +25,7 @@ void Camera::rotate(float angle, const QVector3D &axis)
 void Camera::translate(QVector3D mTrans)
 {
   QMatrix4x4 temp;
-  mTrans += QVector3D(0.0f,0.0f,8.5f);
+  mTrans += QVector3D(-93.0f,-20.0f,0.5f);
   temp.translate(mTrans);
   mViewMatrix = temp;
 }

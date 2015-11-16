@@ -345,7 +345,7 @@ void MainWidget::initializeGL()
     makeCurrent();
     mCamera = new Camera;
     manage = new stateManager;
-    geometries = new GeometryEngine(0.0,0.0,-5.0);
+    geometries = new GeometryEngine(47.0, -9.6, 29.5);
     map = new HeightMap;
     cube = new cubemaker;
     mGround = new GroundHeight;

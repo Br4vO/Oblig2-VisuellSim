@@ -1,8 +1,9 @@
 #ifndef BALLGRAVITY_H
 #define BALLGRAVITY_H
 
-#include "vector3.h"
+#include "Vector3.h"
 
+class Vector3;
 
 class BallGravity
 {

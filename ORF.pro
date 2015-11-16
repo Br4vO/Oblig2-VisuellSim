@@ -36,14 +36,14 @@ HEADERS += \
     statemanager.h \
     transform.h \
     FileHandler.h \
-    vector3.h \
     heightmap.h \
     GroundHeight.h \
     trysil.h \
     Triangulate.h \
     balls.h \
     BallGravity.h \
-    Polygon.h
+    Polygon.h \
+    Vector3.h
 
 RESOURCES += \
     shaders.qrc \

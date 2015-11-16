@@ -10,6 +10,8 @@
 #include "GroundHeight.h"
 #include "trysil.h"
 #include "balls.h"
+#include "BallGravity.h"
+#include "Vector3.h"
 
 #include <QGLWidget>
 #include <QOpenGLFunctions>
@@ -80,8 +82,8 @@ public:
     int bulletCount = 0;
 
     void ballDisplacement();
-    setAcceleration3(Object3 &bola, Vector3 gravity, Vector3 windvelocity, float k);
-    eulerIntegrate3(Object3 &bola, float dt);
+    setAcceleration3(BallGravity &bola, Vector3 gravity, Vector3 windvelocity, float k);
+    eulerIntegrate3(BallGravity &bola, float dt);
 
 protected:
     /** Deletes pointers and classes created.

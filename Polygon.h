@@ -1,7 +1,7 @@
 #ifndef POLYGON_H
 #define POLYGON_H
 
-#include "vector3.h"
+#include "Vector3.h"
 
 class Polygon {
     Vector3 topleft;
