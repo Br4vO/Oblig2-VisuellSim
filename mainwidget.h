@@ -79,6 +79,10 @@ public:
     /// Counts bullets which is shot
     int bulletCount = 0;
 
+    void ballDisplacement();
+    setAcceleration3(Object3 &bola, Vector3 gravity, Vector3 windvelocity, float k);
+    eulerIntegrate3(Object3 &bola, float dt);
+
 protected:
     /** Deletes pointers and classes created.
        */

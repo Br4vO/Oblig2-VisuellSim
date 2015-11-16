@@ -12,7 +12,8 @@ HeightMap::HeightMap() : indexBuf(QOpenGLBuffer::IndexBuffer)
 
 void HeightMap::readHeightMap()
 {
-  QImage* image = new QImage("D://Spillmotorarkitektur//build-Sound-Desktop_Qt_5_4_2_MinGW_32bit2-Debug//heightmap.bmp");
+  //QImage* image = new QImage("D://Spillmotorarkitektur//build-Sound-Desktop_Qt_5_4_2_MinGW_32bit2-Debug//heightmap.bmp");
+    QImage* image = new QImage("heightmap.bmp");
   //std::cout << "heightmap is nonexcisting = " << image->isNull() << std::endl;
   int width = image->width();
     std::cout << "width = " << width << std::endl;
@@ -138,3 +139,13 @@ void HeightMap::drawPlaneGeometry(QOpenGLShaderProgram *program)
 
 }
 
+
+float HeightMap::getDistfromOrigin() const
+{
+    return distfromOrigin;
+}
+
+void HeightMap::setDistfromOrigin(const float a)
+{
+    distfromOrigin = a;
+}

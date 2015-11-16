@@ -200,8 +200,9 @@ void MainWidget::gameLoop()
         }
         //Renders if rotation is changed.
         updateMovement();
-        updateHitdetection();
-        update();
+        //updateHitdetection();
+        ballDisplacement
+                update();
     }
 
 }
@@ -268,26 +269,72 @@ void MainWidget::updateMovement()
 
 void MainWidget::updateHitdetection()
 {
-    for (int i =0; i < 3; i++)
-    {
-        for (int j = 0; j < geometries->antallFiender; j++)
-        {
-            if (bulletCount > 0)
-            {
-                if (geometries->mFiender[j].mPosition.distanceToPoint(geometries->mKuler[i].mPosition) <= 0.5)
-                {
-                    geometries->mKuler[i].mPosition = geometries->mTrans.mPosition;
-                    geometries->mFiender[j].mPosition += QVector3D(0.0f, 50.0f,0.0f);
-                    bulletCount --;
-                    bulletTravling[i] = false;
-                }
-            }
-            if (geometries->mFiender[j].mPosition.distanceToPoint(geometries->mTrans.mPosition) <= 0.5f)
-            {
-                geometries->mTrans.mPosition += QVector3D(0.0f, 50.0f,0.0f);
-            }
-        }
+    //    for (int i =0; i < 3; i++)
+    //    {
+    //        for (int j = 0; j < geometries->antallFiender; j++)
+    //        {
+    //            if (bulletCount > 0)
+    //            {
+    //                if (geometries->mFiender[j].mPosition.distanceToPoint(geometries->mKuler[i].mPosition) <= 0.5)
+    //                {
+    //                    geometries->mKuler[i].mPosition = geometries->mTrans.mPosition;
+    //                    geometries->mFiender[j].mPosition += QVector3D(0.0f, 50.0f,0.0f);
+    //                    bulletCount --;
+    //                    bulletTravling[i] = false;
+    //                }
+    //            }
+    //            if (geometries->mFiender[j].mPosition.distanceToPoint(geometries->mTrans.mPosition) <= 0.5f)
+    //            {
+    //                geometries->mTrans.mPosition += QVector3D(0.0f, 50.0f,0.0f);
+    //            }
+    //        }
+    //    }
+}
+
+////////////
+////////////http://www.boolpen.com/index.php/post/bouncing-ball-in-opengl
+////////////
+
+
+void MainWidget::ballDisplacement()
+{
+    Vector3 Ygravity(0, gravity, 0); // Only the y coordinate has gravity
+    Vector3 pStart = bola.getPosition(); // Save old position for use in collision detection later
+
+    setAcceleration3(bola, Ygravity, windvelocity, k); // Compute total acceleration and then integrate
+    eulerIntegrate3(bola, dt);
+    Vector3 pDest = bola.getPosition(); // Save new position
+
+    Vector3 velocity = bola.getVelocity(); // Save old velocity
+
+    for(int pp=0; pp < floorCounter; pp++) {
+        detectAndReflect3(myfloor[pp], pStart, pDest, velocity, e);
     }
+    detectAndReflect3(poly, pStart, pDest, velocity, e);
+    bola.setVelocity(velocity); // Save new velocity
+    glutPostRedisplay();
+}
+
+void MainWidget::setAcceleration3(Object3 &bola, Vector3 gravity, Vector3 windvelocity, float k) {
+    bola.setAcceleration(gravity);
+
+    float X = bola.getAcceleration().getX() - (k/bola.getMass() * bola.getVelocity().getX() + k/bola.getMass()*windvelocity.getX());
+    float Y = bola.getAcceleration().getY() - (k/bola.getMass() * bola.getVelocity().getY() + k/bola.getMass()*windvelocity.getY());
+    float Z = bola.getAcceleration().getZ() - (k/bola.getMass() * bola.getVelocity().getZ() + k/bola.getMass()*windvelocity.getZ());
+
+    Vector3 newAcceleration(X, Y, Z);
+    bola.setAcceleration(newAcceleration);
+}
+
+void MainWidget::eulerIntegrate3(Object3 &bola, float dt) {
+    Vector3 Pos;
+    Vector3 Vel;
+
+    Pos = bola.getPosition() + bola.getVelocity() * dt;
+    Vel = bola.getVelocity() + bola.getAcceleration() * dt;
+
+    bola.setVelocity(Vel); // Update object's velocity
+    bola.setPosition(Pos); // Update object's position
 }
 
 void MainWidget::initializeGL()
