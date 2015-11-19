@@ -26,7 +26,7 @@ public:
      @param int and int - height and width
   */
   void cameraResizeGL(int, int);
-  void rotate(float angle, const QVector3D &axis);
+  void rotate(float angle, const QVector3D &axis, QVector3D playerPos);
   void translate(QVector3D mTrans);
   ///Rotation to camera
   QQuaternion rotation;

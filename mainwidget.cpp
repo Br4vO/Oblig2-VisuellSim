@@ -123,29 +123,28 @@ void MainWidget::keyPressEvent(QKeyEvent *e)
 
         if(e->key() == Qt::Key_J)
         {
-            mCamera->rotate(4.0, QVector3D(0.0,1.0,0.0));
+            mCamera->rotate(4.0, QVector3D(0.0,1.0,0.0), geometries->mTrans.mPosition);
         }
         if(e->key() == Qt::Key_L)
         {
-            mCamera->rotate(-4.0, QVector3D(0.0,1.0,0.0));
+            mCamera->rotate(-4.0, QVector3D(0.0,1.0,0.0), geometries->mTrans.mPosition);
         }
         if(e->key() == Qt::Key_I)
         {
-            mCamera->rotate(4.0, QVector3D(1.0,0.0,0.0));
+            mCamera->rotate(4.0, QVector3D(1.0,0.0,0.0), geometries->mTrans.mPosition);
         }
         if(e->key() == Qt::Key_K)
         {
-            mCamera->rotate(-4.0, QVector3D(1.0,0.0,0.0));
+            mCamera->rotate(-4.0, QVector3D(1.0,0.0,0.0), geometries->mTrans.mPosition);
         }
         if(e->key() == Qt::Key_U)
         {
-            mCamera->rotate(4.0, QVector3D(0.0,0.0,1.0));
+            mCamera->rotate(4.0, QVector3D(0.0,0.0,1.0), geometries->mTrans.mPosition);
         }
         if(e->key() == Qt::Key_O)
         {
-            mCamera->rotate(-4.0, QVector3D(0.0,0.0,1.0));
+            mCamera->rotate(-4.0, QVector3D(0.0,0.0,1.0), geometries->mTrans.mPosition);
         }
-
 
     }
     if (e->key() == Qt::Key_Space)
@@ -201,8 +200,7 @@ void MainWidget::gameLoop()
         //Renders if rotation is changed.
         updateMovement();
         //updateHitdetection();
-        ballDisplacement
-                update();
+        update();
     }
 
 }
@@ -230,40 +228,38 @@ void MainWidget::updateMovement()
         geometries->mTrans.mPosition += QVector3D(0.0f,0.0f,speed);
         mCamera->mViewMatrix.translate(QVector3D(0.0f,0.0f,-speed));
     }
-    if(buttonWDown == true || buttonDDown == true || buttonADown == true || buttonSDown == true)
-    {
-        QVector3D temp;
-        temp = geometries->mTrans.mPosition;
-        temp = mGround->findGround(temp);
 
-        mCamera->mViewMatrix.translate(QVector3D(0.0f, -(temp.y()-geometries->mTrans.mPosition.y()), 0.0f));
-        geometries->mTrans.mPosition = temp;
-        //SoundManager::getInstance()->updateListener(Vector3(temp.x(),temp.y(),temp.z()),Vector3(0.0f,0.0f,0.0f),Vector3(0.0f,0.0f,1.0f),Vector3(0.0f,1.0f,0.0f));
+    QVector3D temp;
+    int i;
+    temp = geometries->mTrans.mPosition;
+    i = mGround->findVertex(temp);
+    temp = mGround->findGround(temp);
+
+
+    //Ballen er på plane. Se hva som skjer!
+    if(geometries->mTrans.mPosition.y() <= temp.y())
+    {
+        qDebug() << "i er " << i;
+        geometries->mTrans.mPosition += map->mMapData[i].normal;
+        //qDebug() << "Normalen er " << map->mMapData[i].normal;
     }
+
+    //Dette skjer dersom ballen ikke er nedi planet enda
+    else{
+        geometries->mTrans.mPosition.setY(temp.y() - gravity);
+    }
+    qDebug() << "Planet er " << temp;
+    qDebug() << "Player er " <<  geometries->mTrans.mPosition;
+    qDebug() << "mMapData[i]"  << map->mMapData[i].position;
+
+    mCamera->mViewMatrix.translate(QVector3D(0.0f, -(temp.y()-geometries->mTrans.mPosition.y()), 0.0f));
+    //SoundManager::getInstance()->updateListener(Vector3(temp.x(),temp.y(),temp.z()),Vector3(0.0f,0.0f,0.0f),Vector3(0.0f,0.0f,1.0f),Vector3(0.0f,1.0f,0.0f));
+    //}
     //mCamera->mViewMatrix.translate(0.01f, 0.0f, 0.0f);
 
     for (int i = 0; i < geometries->antallFiender; i ++)
     {
         geometries->mFiender[i].mPosition += QVector3D(0.0f,-0.001f,0.0f);
-    }
-
-
-    for (int i = 0; i < 3; i ++)
-    {
-        if (bulletFire == true)
-        {
-            if (bulletTravling[i] == true)
-            {
-                geometries->mKuler[i].mPosition += QVector3D(0.0f, 0.05f,0.0f);
-                if (geometries->mKuler[i].mPosition.y() >= 2.5f)
-                {
-                    geometries->mKuler[i].mPosition = geometries->mTrans.mPosition;
-                    bulletCount --;
-                    bulletTravling[i] = false;
-                }
-            }
-        }
-
     }
 }
 
@@ -291,52 +287,6 @@ void MainWidget::updateHitdetection()
     //    }
 }
 
-////////////
-////////////http://www.boolpen.com/index.php/post/bouncing-ball-in-opengl
-////////////
-
-
-void MainWidget::ballDisplacement()
-{
-    Vector3 Ygravity(0, gravity, 0); // Only the y coordinate has gravity
-    Vector3 pStart = bola.getPosition(); // Save old position for use in collision detection later
-
-    setAcceleration3(bola, Ygravity, windvelocity, k); // Compute total acceleration and then integrate
-    eulerIntegrate3(bola, dt);
-    Vector3 pDest = bola.getPosition(); // Save new position
-
-    Vector3 velocity = bola.getVelocity(); // Save old velocity
-
-    for(int pp=0; pp < floorCounter; pp++) {
-        detectAndReflect3(myfloor[pp], pStart, pDest, velocity, e);
-    }
-    detectAndReflect3(poly, pStart, pDest, velocity, e);
-    bola.setVelocity(velocity); // Save new velocity
-    glutPostRedisplay();
-}
-
-void MainWidget::setAcceleration3(Object3 &bola, Vector3 gravity, Vector3 windvelocity, float k) {
-    bola.setAcceleration(gravity);
-
-    float X = bola.getAcceleration().getX() - (k/bola.getMass() * bola.getVelocity().getX() + k/bola.getMass()*windvelocity.getX());
-    float Y = bola.getAcceleration().getY() - (k/bola.getMass() * bola.getVelocity().getY() + k/bola.getMass()*windvelocity.getY());
-    float Z = bola.getAcceleration().getZ() - (k/bola.getMass() * bola.getVelocity().getZ() + k/bola.getMass()*windvelocity.getZ());
-
-    Vector3 newAcceleration(X, Y, Z);
-    bola.setAcceleration(newAcceleration);
-}
-
-void MainWidget::eulerIntegrate3(Object3 &bola, float dt) {
-    Vector3 Pos;
-    Vector3 Vel;
-
-    Pos = bola.getPosition() + bola.getVelocity() * dt;
-    Vel = bola.getVelocity() + bola.getAcceleration() * dt;
-
-    bola.setVelocity(Vel); // Update object's velocity
-    bola.setPosition(Pos); // Update object's position
-}
-
 void MainWidget::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -357,9 +307,9 @@ void MainWidget::initializeGL()
 
     mCamera->translate(geometries->mTrans.mPosition);
     mCamera->mViewMatrix.translate(QVector3D(0.0f,-2.8f,-50.4f));
-    mCamera->rotate(180.0, QVector3D(0.0,0.0,1.0));
-    mCamera->rotate(180.0, QVector3D(0.0,1.0,0.0));
-    mCamera->rotate(45.0, QVector3D(1.0,0.0,0.0));
+    mCamera->rotate(180.0, QVector3D(0.0,0.0,1.0),QVector3D(0.0, 0.0, 0.0));
+    mCamera->rotate(180.0, QVector3D(0.0,1.0,0.0),QVector3D(0.0, 0.0, 0.0));
+    mCamera->rotate(45.0, QVector3D(1.0,0.0,0.0),QVector3D(0.0, 0.0, 0.0));
 
     mBalls->createBall();
 

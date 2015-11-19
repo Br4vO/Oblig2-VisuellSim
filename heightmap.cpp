@@ -29,7 +29,7 @@ void HeightMap::readHeightMap()
           int redColor = qRed(*color);
           //std::cout << "Red = " << redColor << std::endl;
           mMapData[(width*i)+j].position = QVector3D(i/1.0f-0.64f,2.55-(redColor/20.0f),j/1.0f-0.64f);
-          mMapData[(width*i)+j].normal = QVector3D(float(j)/height, float(i)/height,  (10.0f+j)/8);
+          mMapData[(width*i)+j].normal = QVector3D(float(j)/height, float(i)/height, j/8);
           //mMapData[(width*i)+j].normal = QVector3D(1, 0, 1);
           //std::cout << "MapData" << (width*i)+j << "(x,y,z) = (" << i/100.0f << ", " << redColor/1000.0f << ", " << j/100.0f << ")" << std::endl;
           mMapData[(width*i)+j].texCoord = QVector2D(1.0f/128.0f*i,1.0f/128.0f*j);
@@ -137,15 +137,4 @@ void HeightMap::drawPlaneGeometry(QOpenGLShaderProgram *program)
   //glDrawElements(GL_LINE_STRIP, 32764, GL_UNSIGNED_SHORT, 0);
   glDrawElements(GL_TRIANGLE_STRIP, 32764, GL_UNSIGNED_SHORT, 0);
 
-}
-
-
-float HeightMap::getDistfromOrigin() const
-{
-    return distfromOrigin;
-}
-
-void HeightMap::setDistfromOrigin(const float a)
-{
-    distfromOrigin = a;
 }

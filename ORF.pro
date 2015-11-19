@@ -20,9 +20,7 @@ SOURCES += main.cpp \
     GroundHeight.cpp \
     trysil.cpp \
     Triangulate.cpp \
-    balls.cpp \
-    BallGravity.cpp \
-    Polygon.cpp
+    balls.cpp
 
 SOURCES += \
     mainwidget.cpp \
@@ -41,8 +39,6 @@ HEADERS += \
     trysil.h \
     Triangulate.h \
     balls.h \
-    BallGravity.h \
-    Polygon.h \
     Vector3.h
 
 RESOURCES += \

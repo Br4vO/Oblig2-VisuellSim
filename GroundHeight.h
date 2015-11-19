@@ -23,6 +23,7 @@ class GroundHeight
 public:
     GroundHeight();
     QVector3D findGround(QVector3D &playerPos);
+    int findVertex(QVector3D &playerPos);
 
 private:
     HeightMap *mMap;

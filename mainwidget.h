@@ -40,12 +40,12 @@ class MainWidget : public QGLWidget, protected QOpenGLFunctions
     Q_OBJECT
 
 public:
-  /** Initalizer.
+    /** Initalizer.
      Makes class pointers and initates other classes
      @param parent - Something from QWidget class which has something to do with rendering
      */
     explicit MainWidget(QWidget *parent = 0);
-  /** Destructor.
+    /** Destructor.
      Deletes all classes that was initialized in this class
      */
     ~MainWidget();
@@ -80,10 +80,6 @@ public:
     QMatrix4x4 matrix;
     /// Counts bullets which is shot
     int bulletCount = 0;
-
-    void ballDisplacement();
-    setAcceleration3(BallGravity &bola, Vector3 gravity, Vector3 windvelocity, float k);
-    eulerIntegrate3(BallGravity &bola, float dt);
 
 protected:
     /** Deletes pointers and classes created.
@@ -149,7 +145,9 @@ private:
     /// Checks which bullets are travling
     bool bulletTravling[3] = {false, false, false};
     QMatrix4x4 matrix1;
-        QMatrix4x4 viewMatrix;
+    QMatrix4x4 viewMatrix;
+
+    float gravity = 0.098f;
 };
 
 #endif // MAINWIDGET_H
