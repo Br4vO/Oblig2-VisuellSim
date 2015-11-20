@@ -52,7 +52,7 @@ public:
     void normalize (Punkt3d &p);
     void divide_triangle(Punkt3d &a, Punkt3d &b, Punkt3d &c, int n);
     int hentAntall (){return antall;}
-    void updateBall();
+    QVector3D updateBall();
 
     void drawBall(QOpenGLShaderProgram *program);
 

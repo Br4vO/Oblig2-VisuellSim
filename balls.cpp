@@ -109,7 +109,7 @@ void Balls::divide_triangle(Punkt3d &a, Punkt3d &b, Punkt3d &c, int n)
     else triangle(a, b, c);
 }
 
-void Balls::updateBall()
+QVector3D Balls::updateBall()
 {
     QVector3D temp;
     int i;
@@ -120,21 +120,23 @@ void Balls::updateBall()
     //Ballen er på plane. Se hva som skjer!
     if(ballTransform.mPosition.y() <= temp.y())
     {
-        qDebug() << "i er " << i;
+        //qDebug() << "i er " << i;
         temp +=  QVector3D(mHeight->mMapData[i].normal.x()/12, 0, mHeight->mMapData[i].normal.z()/12);
-        qDebug() << "Normalen er " << mHeight->mMapData[i].normal;
+        //qDebug() << "Normalen er " << mHeight->mMapData[i].normal;
     }
 
     //Dette skjer dersom ballen ikke er nedi planet enda
     else{
-        ballTransform.mPosition.setY(temp.y() - gravity);
+        temp.setY(temp.y() - gravity);
     }
 //    qDebug() << "Planet er " << temp;
 //    qDebug() << "Player er " <<  ballTransform.mPosition;
 //    qDebug() << "mMapData[i]"  << mHeight->mMapData[i].position;
+    //mCamera->mViewMatrix.translate
 
-    mCamera->mViewMatrix.translate(QVector3D(0.0f, -(temp.y()-ballTransform.mPosition.y()), 0.0f));
+    QVector3D moveCamera = QVector3D(-(temp.x()-ballTransform.mPosition.x()), -(temp.y()-ballTransform.mPosition.y()), -(temp.z()-ballTransform.mPosition.z()));
     ballTransform.mPosition = temp;
+    return moveCamera;
 }
 
 void Balls::drawBall(QOpenGLShaderProgram *program)

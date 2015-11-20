@@ -229,7 +229,7 @@ void MainWidget::updateMovement()
         mCamera->mViewMatrix.translate(QVector3D(0.0f,0.0f,-speed));
     }
 
-    mBalls->updateBall();
+    mCamera->mViewMatrix.translate(mBalls->updateBall());
 
     //    for (int i = 0; i < geometries->antallFiender; i ++)
     //    {

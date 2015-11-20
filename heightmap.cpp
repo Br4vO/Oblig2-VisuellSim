@@ -29,20 +29,17 @@ void HeightMap::readHeightMap()
             int redColor = qRed(*color);
             //std::cout << "Red = " << redColor << std::endl;
             mMapData[(width*i)+j].position = QVector3D(i/1.0f-0.64f,2.55-(redColor/20.0f),j/1.0f-0.64f);
-            //mMapData[(width*i)+j].normal = QVector3D(float(j)/height, float(i)/height, float(j/8));
+            mMapData[(width*i)+j].normal = QVector3D(float(j)/height, float(i)/height, float(j/8));
             //mMapData[(width*i)+j].normal = QVector3D(1, 0, 1);
             //std::cout << "MapData" << (width*i)+j << "(x,y,z) = (" << i/100.0f << ", " << redColor/1000.0f << ", " << j/100.0f << ")" << std::endl;
             mMapData[(width*i)+j].texCoord = QVector2D(1.0f/128.0f*i,1.0f/128.0f*j);
         }
     }
 
-    for (int i = 0; i < height; i++)
-      {
-      for (int j =0; j < width; j++)
-        {
-          mMapData[i].normal = normal(mMapData[i].position, mMapData[i+1].position, mMapData[i+2].position);
-        }
-      }
+    for (int i = 0; i < height*width; i++)
+    {
+        mMapData[i].normal = normal(mMapData[i].position, mMapData[i+1].position, mMapData[i+2].position);
+    }
 
     GLsizei  indexCount = mapSize * 2 * (mapSize-1) + (mapSize-2) * 2;
     GLushort *indices = new GLushort[indexCount];
