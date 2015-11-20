@@ -49,7 +49,7 @@ void MainWidget::mousePressEvent(QMouseEvent *e)
         {
             if (bulletTravling[i] == false)
             {
-                geometries->mKuler[i].mPosition = geometries->mTrans.mPosition;
+                geometries->mKuler[i].mPosition = mBalls->ballTransform.mPosition;
                 bulletTravling[i] = true;
                 i = 3;
             }
@@ -88,22 +88,22 @@ void MainWidget::keyPressEvent(QKeyEvent *e)
     {
         if (e->key() == Qt::Key_A)
         {
-            //geometries->mTrans.mPosition += QVector3D(0.1f,0.0f,0.0f);
+            //mBalls->ballTransform.mPosition += QVector3D(0.1f,0.0f,0.0f);
             buttonADown = true;
         }
         if (e->key() == Qt::Key_S)
         {
-            //geometries->mTrans.mPosition += QVector3D(0.1f,0.0f,0.0f);
+            //mBalls->ballTransform.mPosition += QVector3D(0.1f,0.0f,0.0f);
             buttonSDown = true;
         }
         if (e->key() == Qt::Key_D)
         {
-            //geometries->mTrans.mPosition += QVector3D(0.1f,0.0f,0.0f);
+            //mBalls->ballTransform.mPosition += QVector3D(0.1f,0.0f,0.0f);
             buttonDDown = true;
         }
         if (e->key() == Qt::Key_W)
         {
-            //geometries->mTrans.mPosition += QVector3D(0.1f,0.0f,0.0f);
+            //mBalls->ballTransform.mPosition += QVector3D(0.1f,0.0f,0.0f);
             buttonWDown = true;
         }
 
@@ -123,27 +123,27 @@ void MainWidget::keyPressEvent(QKeyEvent *e)
 
         if(e->key() == Qt::Key_J)
         {
-            mCamera->rotate(4.0, QVector3D(0.0,1.0,0.0), geometries->mTrans.mPosition);
+            mCamera->rotate(4.0, QVector3D(0.0,1.0,0.0), mBalls->ballTransform.mPosition);
         }
         if(e->key() == Qt::Key_L)
         {
-            mCamera->rotate(-4.0, QVector3D(0.0,1.0,0.0), geometries->mTrans.mPosition);
+            mCamera->rotate(-4.0, QVector3D(0.0,1.0,0.0), mBalls->ballTransform.mPosition);
         }
         if(e->key() == Qt::Key_I)
         {
-            mCamera->rotate(4.0, QVector3D(1.0,0.0,0.0), geometries->mTrans.mPosition);
+            mCamera->rotate(4.0, QVector3D(1.0,0.0,0.0), mBalls->ballTransform.mPosition);
         }
         if(e->key() == Qt::Key_K)
         {
-            mCamera->rotate(-4.0, QVector3D(1.0,0.0,0.0), geometries->mTrans.mPosition);
+            mCamera->rotate(-4.0, QVector3D(1.0,0.0,0.0), mBalls->ballTransform.mPosition);
         }
         if(e->key() == Qt::Key_U)
         {
-            mCamera->rotate(4.0, QVector3D(0.0,0.0,1.0), geometries->mTrans.mPosition);
+            mCamera->rotate(4.0, QVector3D(0.0,0.0,1.0), mBalls->ballTransform.mPosition);
         }
         if(e->key() == Qt::Key_O)
         {
-            mCamera->rotate(-4.0, QVector3D(0.0,0.0,1.0), geometries->mTrans.mPosition);
+            mCamera->rotate(-4.0, QVector3D(0.0,0.0,1.0), mBalls->ballTransform.mPosition);
         }
 
     }
@@ -210,57 +210,31 @@ void MainWidget::updateMovement()
     float speed = 0.5;
     if ( buttonADown == true)
     {
-        geometries->mTrans.mPosition += QVector3D(-speed,0.0f,0.0f);
+        mBalls->ballTransform.mPosition += QVector3D(-speed,0.0f,0.0f);
         mCamera->mViewMatrix.translate(QVector3D(speed,0.0f,0.0f));
     }
     if (buttonSDown == true)
     {
-        geometries->mTrans.mPosition += QVector3D(0.0f, 0.0f,-speed);
+        mBalls->ballTransform.mPosition += QVector3D(0.0f, 0.0f,-speed);
         mCamera->mViewMatrix.translate(QVector3D(0.0f, 0.0f,speed));
     }
     if (buttonDDown == true)
     {
-        geometries->mTrans.mPosition += QVector3D(speed,0.0f,0.0f);
+        mBalls->ballTransform.mPosition += QVector3D(speed,0.0f,0.0f);
         mCamera->mViewMatrix.translate(QVector3D(-speed,0.0f,0.0f));
     }
     if (buttonWDown == true)
     {
-        geometries->mTrans.mPosition += QVector3D(0.0f,0.0f,speed);
+        mBalls->ballTransform.mPosition += QVector3D(0.0f,0.0f,speed);
         mCamera->mViewMatrix.translate(QVector3D(0.0f,0.0f,-speed));
     }
 
-    QVector3D temp;
-    int i;
-    temp = geometries->mTrans.mPosition;
-    i = mGround->findVertex(temp);
-    temp = mGround->findGround(temp);
+    mBalls->updateBall();
 
-
-    //Ballen er på plane. Se hva som skjer!
-    if(geometries->mTrans.mPosition.y() <= temp.y())
-    {
-        qDebug() << "i er " << i;
-        geometries->mTrans.mPosition += map->mMapData[i].normal;
-        //qDebug() << "Normalen er " << map->mMapData[i].normal;
-    }
-
-    //Dette skjer dersom ballen ikke er nedi planet enda
-    else{
-        geometries->mTrans.mPosition.setY(temp.y() - gravity);
-    }
-    qDebug() << "Planet er " << temp;
-    qDebug() << "Player er " <<  geometries->mTrans.mPosition;
-    qDebug() << "mMapData[i]"  << map->mMapData[i].position;
-
-    mCamera->mViewMatrix.translate(QVector3D(0.0f, -(temp.y()-geometries->mTrans.mPosition.y()), 0.0f));
-    //SoundManager::getInstance()->updateListener(Vector3(temp.x(),temp.y(),temp.z()),Vector3(0.0f,0.0f,0.0f),Vector3(0.0f,0.0f,1.0f),Vector3(0.0f,1.0f,0.0f));
-    //}
-    //mCamera->mViewMatrix.translate(0.01f, 0.0f, 0.0f);
-
-    for (int i = 0; i < geometries->antallFiender; i ++)
-    {
-        geometries->mFiender[i].mPosition += QVector3D(0.0f,-0.001f,0.0f);
-    }
+    //    for (int i = 0; i < geometries->antallFiender; i ++)
+    //    {
+    //        geometries->mFiender[i].mPosition += QVector3D(0.0f,-0.001f,0.0f);
+    //    }
 }
 
 void MainWidget::updateHitdetection()
@@ -273,15 +247,15 @@ void MainWidget::updateHitdetection()
     //            {
     //                if (geometries->mFiender[j].mPosition.distanceToPoint(geometries->mKuler[i].mPosition) <= 0.5)
     //                {
-    //                    geometries->mKuler[i].mPosition = geometries->mTrans.mPosition;
+    //                    geometries->mKuler[i].mPosition = mBalls->ballTransform.mPosition;
     //                    geometries->mFiender[j].mPosition += QVector3D(0.0f, 50.0f,0.0f);
     //                    bulletCount --;
     //                    bulletTravling[i] = false;
     //                }
     //            }
-    //            if (geometries->mFiender[j].mPosition.distanceToPoint(geometries->mTrans.mPosition) <= 0.5f)
+    //            if (geometries->mFiender[j].mPosition.distanceToPoint(mBalls->ballTransform.mPosition) <= 0.5f)
     //            {
-    //                geometries->mTrans.mPosition += QVector3D(0.0f, 50.0f,0.0f);
+    //                mBalls->ballTransform.mPosition += QVector3D(0.0f, 50.0f,0.0f);
     //            }
     //        }
     //    }
@@ -300,12 +274,12 @@ void MainWidget::initializeGL()
     cube = new cubemaker;
     mGround = new GroundHeight;
     mTrysil = new trysil;
-    mBalls = new Balls;
+    mBalls = new Balls(47.0, -9.6, 29.5);
 
     initShaders();
     initTextures();
 
-    mCamera->translate(geometries->mTrans.mPosition);
+    mCamera->translate(mBalls->ballTransform.mPosition);
     mCamera->mViewMatrix.translate(QVector3D(0.0f,-2.8f,-50.4f));
     mCamera->rotate(180.0, QVector3D(0.0,0.0,1.0),QVector3D(0.0, 0.0, 0.0));
     mCamera->rotate(180.0, QVector3D(0.0,1.0,0.0),QVector3D(0.0, 0.0, 0.0));
@@ -381,55 +355,6 @@ void MainWidget::paintGL()
     //Clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //    texture->bind();
-    //    // Calculate model view transformation
-    //    QMatrix4x4 matrix;
-    //    matrix.translate(geometries->mTrans.mPosition);
-    //    matrix.rotate(mCamera->rotation);
-    //    matrix.scale(geometries->mTrans.mScale);
-
-    //    // Set projection matrix
-    //    program.setUniformValue("pMatrix", mCamera->projection);
-
-    //    // Set modelview matrix
-    //      QMatrix4x4 mvMatrix = mCamera->mViewMatrix*matrix;
-    //    program.setUniformValue("mvMatrix", mvMatrix);
-
-    //    // Set nMatrix
-    //    //matrix for normals - inverted mv-matrix
-    //    QMatrix3x3 nMatrix = matrix.normalMatrix();
-    //    //hooking matrix to shader
-    //    program.setUniformValue("nMatrix", nMatrix);
-
-    //    // Use texture unit 0 which contains cube.png
-    //    program.setUniformValue("texture", 0);
-    //    // Draw cube geometry
-    //    cube->drawCubeGeometry(&program);
-
-    //    matrix.setToIdentity();
-    //    matrix.scale(3);
-    //    matrix.translate(-68000,-2,-3400);
-    //matrix.rotate(mCamera->rotation);
-
-
-    //    // Set projection matrix
-    //    program.setUniformValue("pMatrix", mCamera->projection);
-
-    //    // Set modelview matrix
-    //    mvMatrix = mCamera->mViewMatrix*matrix;
-    //    program.setUniformValue("mvMatrix", mvMatrix);
-
-    //    // Set nMatrix
-    //    //matrix for normals - inverted mv-matrix
-    //    nMatrix = matrix.normalMatrix();
-    //    //hooking matrix to shader
-    //    program.setUniformValue("nMatrix", nMatrix);
-
-    //    // Use texture unit 0 which contains cube.png
-    //    program.setUniformValue("texture", 0);
-    //    // Draw cube geometry
-    //    mTrysil->drawTrysilGeometry(&program);
-
     texturePlane->bind();
     QMatrix4x4 matrix1;
     matrix1.setToIdentity();
@@ -457,9 +382,9 @@ void MainWidget::paintGL()
     // Calculate model view transformation
     QMatrix4x4 matrix;
     matrix.setToIdentity();
-    matrix.translate(geometries->mTrans.mPosition);
+    matrix.translate(mBalls->ballTransform.mPosition);
     matrix.rotate(mCamera->rotation);
-    matrix.scale(geometries->mTrans.mScale);
+   // matrix.scale(mBalls->ballTransform.mScale);
 
     // Set projection matrix
     program.setUniformValue("pMatrix", mCamera->projection);
@@ -478,62 +403,4 @@ void MainWidget::paintGL()
     program.setUniformValue("texture", 0);
     // Draw cube geometry
     mBalls->drawBall(&program);
-
-    //    for (int i = 0; i < geometries->antallFiender; i++)
-    //      {
-    //       matrix1.translate(geometries->mFiender[i].mPosition);
-    //       matrix1.rotate(mCamera->rotation);
-    //       matrix1.scale(geometries->mFiender[i].mScale);
-
-    //       // Set projection matrix
-    //       program.setUniformValue("pMatrix", mCamera->projection);
-
-    //       // Set modelview matrix
-    //       program.setUniformValue("mvMatrix", matrix1);
-
-    //       // Set nMatrix
-    //       //matrix for normals - inverted mv-matrix
-    //       nMatrix = matrix1.normalMatrix();
-    //       //hooking matrix to shader
-    //       program.setUniformValue("nMatrix", nMatrix);
-
-    //       // Use texture unit 0 which contains cube.png
-    //       program.setUniformValue("texture", 0);
-    //       // Draw cube geometry
-    //       geometries->drawCubeGeometry(&program);
-
-    //       matrix1.setToIdentity();
-    //      }
-
-    //        for (int i = 0; i <3; i++)
-    //          {
-    //            if (bulletTravling[i] == true)
-    //              {
-    //                matrix1.translate(geometries->mKuler[i].mPosition);
-    //                matrix1.rotate(mCamera->rotation);
-    //                matrix1.scale(geometries->mKuler[i].mScale);
-
-    //                // Set projection matrix
-    //                program.setUniformValue("pMatrix", mCamera->projection);
-
-    //                // Set modelview matrix
-    //                program.setUniformValue("mvMatrix", matrix1);
-
-    //                // Set nMatrix
-    //                //matrix for normals - inverted mv-matrix
-    //                nMatrix = matrix1.normalMatrix();
-    //                //hooking matrix to shader
-    //                program.setUniformValue("nMatrix", nMatrix);
-
-    //                // Use texture unit 0 which contains cube.png
-    //                program.setUniformValue("texture", 0);
-    //                // Draw cube geometry
-    //                geometries->drawCubeGeometry(&program);
-    //                matrix1.setToIdentity();
-    //              }
-
-
-    //          }
-
-
 }

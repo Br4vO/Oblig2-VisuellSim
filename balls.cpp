@@ -8,9 +8,14 @@
 
 using namespace std;
 
-Balls::Balls() : m_x(0.0f), m_y(0.0f), m_z(0.0f), m_r(0.5f), m_teta(0.0f), m_retning(-1.0f)
+Balls::Balls(float x, float y, float z) : m_x(0.0f), m_y(0.0f), m_z(0.0f), m_r(0.5f), m_teta(0.0f), m_retning(-1.0f)
 {
     antall = 0;
+    mGround = new GroundHeight;
+    mHeight = new HeightMap;
+    mCamera = new Camera;
+
+    ballTransform.mPosition = QVector3D(x, y, z);
 }
 
 void Balls::createBall()
@@ -37,9 +42,6 @@ void Balls::lesKoordinater(const char *filnavn)
         innfil >> v[i].m_B;
         innfil >> v[i].m_S;
         innfil >> v[i].m_T;
-        qDebug() << "v[" << i << "].m_x = " << v[i].m_x;
-        qDebug() << "v[" << i << "].m_y = " << v[i].m_y;
-        qDebug() << "v[" << i << "].m_z = " << v[i].m_z;
     }
 }
 
@@ -59,7 +61,6 @@ void Balls::tetrahedron(int n)
     divide_triangle(v[3], v[2], v[1], n);
     divide_triangle(v[0], v[3], v[1], n);
     divide_triangle(v[0], v[2], v[3], n);
-    qDebug() << "I LIVE T00";
 }
 
 void Balls::normalize(Punkt3d &p)
@@ -106,6 +107,33 @@ void Balls::divide_triangle(Punkt3d &a, Punkt3d &b, Punkt3d &c, int n)
         divide_triangle(v1, v2, v3, n-1);
     }
     else triangle(a, b, c);
+}
+
+void Balls::updateBall()
+{
+    QVector3D temp;
+    int i;
+    temp = ballTransform.mPosition;
+    i = mGround->findVertex(temp);
+    temp = mGround->findGround(temp);
+
+    //Ballen er på plane. Se hva som skjer!
+    if(ballTransform.mPosition.y() <= temp.y())
+    {
+        qDebug() << "i er " << i;
+        ballTransform.mPosition +=  QVector3D(mHeight->mMapData[i].normal.x()/12, 0, mHeight->mMapData[i].normal.z()/12);
+        qDebug() << "Normalen er " << mHeight->mMapData[i].normal;
+    }
+
+    //Dette skjer dersom ballen ikke er nedi planet enda
+    else{
+        ballTransform.mPosition.setY(temp.y() - gravity);
+    }
+//    qDebug() << "Planet er " << temp;
+//    qDebug() << "Player er " <<  ballTransform.mPosition;
+//    qDebug() << "mMapData[i]"  << mHeight->mMapData[i].position;
+
+    mCamera->mViewMatrix.translate(QVector3D(0.0f, -(temp.y()-ballTransform.mPosition.y()), 0.0f));
 }
 
 void Balls::drawBall(QOpenGLShaderProgram *program)

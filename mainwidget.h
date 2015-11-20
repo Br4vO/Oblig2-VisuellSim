@@ -146,8 +146,6 @@ private:
     bool bulletTravling[3] = {false, false, false};
     QMatrix4x4 matrix1;
     QMatrix4x4 viewMatrix;
-
-    float gravity = 0.098f;
 };
 
 #endif // MAINWIDGET_H

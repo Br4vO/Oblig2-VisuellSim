@@ -7,6 +7,10 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
 #include <QMatrix4x4>
+#include "transform.h"
+#include "GroundHeight.h"
+#include "heightmap.h"
+#include "camera.h"
 
 struct Punkt3d
 {
@@ -20,10 +24,14 @@ struct Punkt3d
     float m_T;
 };
 
+class GroundHeight;
+class HeightMap;
+class Camera;
+
 class Balls  : protected QOpenGLFunctions
 {
 public:
-    Balls();
+    Balls(float x, float y, float z);
 
     GLfloat m_x;
     GLfloat m_y;
@@ -32,7 +40,7 @@ public:
     GLfloat m_teta;
     GLfloat m_retning;
 
-
+    Transform ballTransform;
     Punkt3d v[4];
     Punkt3d ballvertex[8000];
     int antall;
@@ -44,9 +52,17 @@ public:
     void normalize (Punkt3d &p);
     void divide_triangle(Punkt3d &a, Punkt3d &b, Punkt3d &c, int n);
     int hentAntall (){return antall;}
+    void updateBall();
+
     void drawBall(QOpenGLShaderProgram *program);
 
 private:
+    GroundHeight *mGround;
+    HeightMap *mHeight;
+    Camera *mCamera;
+
+    float gravity = 0.098f;
+
     /// Array buffer for vertex data for heightmap.
     QOpenGLBuffer arrayBuf;
     ///Light position
