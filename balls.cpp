@@ -121,7 +121,7 @@ void Balls::updateBall()
     if(ballTransform.mPosition.y() <= temp.y())
     {
         qDebug() << "i er " << i;
-        ballTransform.mPosition +=  QVector3D(mHeight->mMapData[i].normal.x()/12, 0, mHeight->mMapData[i].normal.z()/12);
+        temp +=  QVector3D(mHeight->mMapData[i].normal.x()/12, 0, mHeight->mMapData[i].normal.z()/12);
         qDebug() << "Normalen er " << mHeight->mMapData[i].normal;
     }
 
@@ -134,6 +134,7 @@ void Balls::updateBall()
 //    qDebug() << "mMapData[i]"  << mHeight->mMapData[i].position;
 
     mCamera->mViewMatrix.translate(QVector3D(0.0f, -(temp.y()-ballTransform.mPosition.y()), 0.0f));
+    ballTransform.mPosition = temp;
 }
 
 void Balls::drawBall(QOpenGLShaderProgram *program)
