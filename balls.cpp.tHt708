@@ -16,8 +16,9 @@ Balls::Balls(float x, float y, float z) : m_x(0.0f), m_y(0.0f), m_z(0.0f), m_r(0
     mCamera = new Camera;
 
     ballTransform.mPosition = QVector3D(x, y, z);
-    retning = ballTransform.mPosition;
-
+    QVector3D temp = ballTransform.mPosition;;
+    int i = mGround->findVertex(temp);
+    akselerasjon = (mHeight->mMapData[i].normal + QVector3D(0.0f, gravity, 0.0f)) * gravity * mHeight->mMapData[i].normal.y();
 }
 
 void Balls::createBall()
@@ -114,21 +115,19 @@ void Balls::divide_triangle(Punkt3d &a, Punkt3d &b, Punkt3d &c, int n)
 QVector3D Balls::updateBall()
 {
     QVector3D temp;
-
     int i;
     temp = ballTransform.mPosition;
     i = mGround->findVertex(temp);
     temp = mGround->findGround(temp);
 
-    retning += (QVector3D(ballTransform.mPosition.x(), 0, ballTransform.mPosition.z()) - QVector3D(prevPos.x(), 0, prevPos.z()) + QVector3D(mHeight->mMapData[i].normal.x(), 0, mHeight->mMapData[i].normal.z())) / 7;
-    akselerasjon += ((mHeight->mMapData[i].normal + QVector3D(0.0f, gravity, 0.0f)) * gravity * mHeight->mMapData[i].normal.y()) / 7;
 
     //Ballen er på plane. Se hva som skjer!
     if(ballTransform.mPosition.y() <= temp.y())
     {
         //qDebug() << "i er " << i;
-
-        temp +=  (retning * akselerasjon) / 12;
+        temp +=  QVector3D(mHeight->mMapData[i].normal.x(), 0, mHeight->mMapData[i].normal.z()) * akselerasjon;
+        qDebug() << "Normalen er " << mHeight->mMapData[i].normal;
+        akselerasjon *= 0.99;
 
         // Stop rotation when speed goes below threshold
         if (akselerasjon.x()+akselerasjon.y()+akselerasjon.z() < 0.01)
@@ -136,17 +135,19 @@ QVector3D Balls::updateBall()
             akselerasjon = QVector3D(0.0,0.0,0.0);
         }
     }
+
     //Dette skjer dersom ballen ikke er nedi planet enda
     else{
         temp.setY(temp.y() - gravity);
     }
-//    qDebug() << "Akselerasjon er " << akselerasjon;
-//    qDebug() << "Retningen er " << retning;
+//    qDebug() << "Planet er " << temp;
+//    qDebug() << "Player er " <<  ballTransform.mPosition;
+//    qDebug() << "mMapData[i]"  << mHeight->mMapData[i].position;
+    //mCamera->mViewMatrix.translate
 
     QVector3D moveCamera = QVector3D(-(temp.x()-ballTransform.mPosition.x()), -(temp.y()-ballTransform.mPosition.y()), -(temp.z()-ballTransform.mPosition.z()));
-    prevPos = ballTransform.mPosition;
     ballTransform.mPosition = temp;
-
+    qDebug() << "Temp er " << temp;
     return moveCamera;
 }
 
@@ -175,7 +176,7 @@ void Balls::drawBall(QOpenGLShaderProgram *program)
     int normalLocation = program->attributeLocation("a_normal");
     program->enableAttributeArray(normalLocation);
     program->setAttributeBuffer(normalLocation, GL_FLOAT, offset, 3, 8* sizeof(GLfloat));
-    //qDebug() << vertexLocation << " " << texcoordLocation << " " << normalLocation;
+     //qDebug() << vertexLocation << " " << texcoordLocation << " " << normalLocation;
     //Enables the light:
     //These first lines should be in an init-function
     m_lightPosUniform = program->uniformLocation("lightPosition");

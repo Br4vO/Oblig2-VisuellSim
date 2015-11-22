@@ -63,6 +63,8 @@ private:
 
     float gravity = 0.098f;
     QVector3D akselerasjon;
+    QVector3D retning;
+    QVector3D prevPos;
 
     /// Array buffer for vertex data for heightmap.
     QOpenGLBuffer arrayBuf;
