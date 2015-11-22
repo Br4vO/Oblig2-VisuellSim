@@ -1,0 +1,1 @@
+Du starter spillet ved å klikke ned "Space" knappen på tastaturet. Det er mulig å navigere seg rundt med WASD knappene, men ballen vil kjempe tålig greit imot dette. 
