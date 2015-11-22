@@ -116,13 +116,21 @@ QVector3D Balls::updateBall()
     temp = ballTransform.mPosition;
     i = mGround->findVertex(temp);
     temp = mGround->findGround(temp);
+    akselerasjon = (mHeight->mMapData[i].normal + QVector3D(0.0f, gravity, 0.0f)) * gravity * mHeight->mMapData[i].normal.y();
 
     //Ballen er på plane. Se hva som skjer!
     if(ballTransform.mPosition.y() <= temp.y())
     {
         //qDebug() << "i er " << i;
-        temp +=  QVector3D(mHeight->mMapData[i].normal.x()/12, 0, mHeight->mMapData[i].normal.z()/12);
+        temp +=  QVector3D(mHeight->mMapData[i].normal.x(), 0, mHeight->mMapData[i].normal.z())*akselerasjon;
         //qDebug() << "Normalen er " << mHeight->mMapData[i].normal;
+        akselerasjon *= 0.99;
+
+        // Stop rotation when speed goes below threshold
+        if (akselerasjon.x()+akselerasjon.y()+akselerasjon.z() < 0.01)
+        {
+            akselerasjon = QVector3D(0.0,0.0,0.0);
+        }
     }
 
     //Dette skjer dersom ballen ikke er nedi planet enda

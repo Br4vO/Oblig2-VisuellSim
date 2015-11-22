@@ -4,7 +4,7 @@
 
 stateManager::stateManager()
 {
-
+  pause = true;
 }
 
 void stateManager::startProgram()

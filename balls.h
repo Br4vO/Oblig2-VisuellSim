@@ -62,6 +62,7 @@ private:
     Camera *mCamera;
 
     float gravity = 0.098f;
+    QVector3D akselerasjon;
 
     /// Array buffer for vertex data for heightmap.
     QOpenGLBuffer arrayBuf;
