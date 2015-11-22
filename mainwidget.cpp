@@ -383,7 +383,9 @@ void MainWidget::paintGL()
     QMatrix4x4 matrix;
     matrix.setToIdentity();
     matrix.translate(mBalls->ballTransform.mPosition);
-    matrix.rotate(mCamera->rotation);
+    matrix.rotate(mBalls->m_tetaX, 1, 0, 0);
+    matrix.rotate(mBalls->m_tetaY, 0, 1, 0);
+    matrix.rotate(mBalls->m_tetaZ, 0, 0, 1);
    // matrix.scale(mBalls->ballTransform.mScale);
 
     // Set projection matrix

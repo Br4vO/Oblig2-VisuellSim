@@ -37,7 +37,9 @@ public:
     GLfloat m_y;
     GLfloat m_z;
     GLfloat m_r;
-    GLfloat m_teta;
+    GLfloat m_tetaX;
+    GLfloat m_tetaY;
+    GLfloat m_tetaZ;
     GLfloat m_retning;
 
     Transform ballTransform;
@@ -55,7 +57,7 @@ public:
     QVector3D updateBall();
 
     void drawBall(QOpenGLShaderProgram *program);
-
+QVector3D retning;
 private:
     GroundHeight *mGround;
     HeightMap *mHeight;
@@ -63,8 +65,10 @@ private:
 
     float gravity = 0.098f;
     QVector3D akselerasjon;
-    QVector3D retning;
+
     QVector3D prevPos;
+
+    void rotateBall();
 
     /// Array buffer for vertex data for heightmap.
     QOpenGLBuffer arrayBuf;

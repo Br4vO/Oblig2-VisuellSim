@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Balls::Balls(float x, float y, float z) : m_x(0.0f), m_y(0.0f), m_z(0.0f), m_r(0.5f), m_teta(0.0f), m_retning(-1.0f)
+Balls::Balls(float x, float y, float z) : m_x(0.0f), m_y(0.0f), m_z(0.0f), m_r(0.5f), m_retning(-1.0f)
 {
     antall = 0;
     mGround = new GroundHeight;
@@ -126,8 +126,6 @@ QVector3D Balls::updateBall()
     //Ballen er på plane. Se hva som skjer!
     if(ballTransform.mPosition.y() <= temp.y())
     {
-        //qDebug() << "i er " << i;
-
         temp +=  (retning * akselerasjon) / 12;
 
         // Stop rotation when speed goes below threshold
@@ -136,18 +134,29 @@ QVector3D Balls::updateBall()
             akselerasjon = QVector3D(0.0,0.0,0.0);
         }
     }
+
     //Dette skjer dersom ballen ikke er nedi planet enda
     else{
         temp.setY(temp.y() - gravity);
     }
-//    qDebug() << "Akselerasjon er " << akselerasjon;
-//    qDebug() << "Retningen er " << retning;
 
     QVector3D moveCamera = QVector3D(-(temp.x()-ballTransform.mPosition.x()), -(temp.y()-ballTransform.mPosition.y()), -(temp.z()-ballTransform.mPosition.z()));
     prevPos = ballTransform.mPosition;
     ballTransform.mPosition = temp;
 
+    rotateBall();
+
     return moveCamera;
+}
+
+void Balls::rotateBall()
+{
+    GLfloat dteta = 100/12;
+    GLfloat r = 0.5f;
+    m_tetaX += dteta*retning.x();
+    m_tetaY += dteta*retning.y();
+    m_tetaZ += dteta*retning.z();
+
 }
 
 void Balls::drawBall(QOpenGLShaderProgram *program)
