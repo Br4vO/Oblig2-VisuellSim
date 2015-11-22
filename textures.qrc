@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>cube.png</file>
-        <file>heightmap.bmp</file>
+        <file>heightmap4.bmp</file>
+        <file>grid.png</file>
+        <file>grid.bmp</file>
     </qresource>
 </RCC>

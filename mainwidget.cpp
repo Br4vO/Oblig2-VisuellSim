@@ -269,18 +269,18 @@ void MainWidget::initializeGL()
     makeCurrent();
     mCamera = new Camera;
     manage = new stateManager;
-    geometries = new GeometryEngine(47.0, -9.6, 29.5);
+    geometries = new GeometryEngine(64.0, -23.75, 64);
     map = new HeightMap;
     cube = new cubemaker;
     mGround = new GroundHeight;
     mTrysil = new trysil;
-    mBalls = new Balls(47.0, -9.6, 29.5);
+    mBalls = new Balls(64.0, -23.75, 64);
 
     initShaders();
     initTextures();
 
     mCamera->translate(mBalls->ballTransform.mPosition);
-    mCamera->mViewMatrix.translate(QVector3D(0.0f,-2.8f,-50.4f));
+    mCamera->mViewMatrix.translate(QVector3D(-35.0f,-20.8f,-65.0f));
     mCamera->rotate(180.0, QVector3D(0.0,0.0,1.0),QVector3D(0.0, 0.0, 0.0));
     mCamera->rotate(180.0, QVector3D(0.0,1.0,0.0),QVector3D(0.0, 0.0, 0.0));
     mCamera->rotate(45.0, QVector3D(1.0,0.0,0.0),QVector3D(0.0, 0.0, 0.0));
@@ -331,7 +331,7 @@ void MainWidget::initTextures()
     // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)
     texture->setWrapMode(QOpenGLTexture::Repeat);
     // Load cube.png image
-    texturePlane = new QOpenGLTexture(QImage(":/heightmap.bmp"));
+    texturePlane = new QOpenGLTexture(QImage(":/grid.bmp"));
 
     // Set nearest filtering mode for texture minification
     texturePlane->setMinificationFilter(QOpenGLTexture::Nearest);

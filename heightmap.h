@@ -49,7 +49,7 @@ private:
     GLuint m_specularColorUniform;
 
     ///Ligth pos and colors:
-    QVector3D lightPos = QVector3D(10.0f, 0.0f, 30.0f);
+    QVector3D lightPos = QVector3D(-0.0f, -300.0f, -30.0f);
     //test different ambientColors:
     //QVector3D ambientColor= QVector3D(0.3f, 1.0f, 1.0f);
     //QVector3D ambientColor= QVector3D(0.9f, 0.9f, 1.0f);

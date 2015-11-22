@@ -122,8 +122,8 @@ QVector3D Balls::updateBall()
     if(ballTransform.mPosition.y() <= temp.y())
     {
         //qDebug() << "i er " << i;
-        temp +=  QVector3D(mHeight->mMapData[i].normal.x(), 0, mHeight->mMapData[i].normal.z())*akselerasjon;
-        //qDebug() << "Normalen er " << mHeight->mMapData[i].normal;
+        temp +=  QVector3D(mHeight->mMapData[i].normal.x(), 0, mHeight->mMapData[i].normal.z());
+        qDebug() << "Normalen er " << mHeight->mMapData[i].normal;
         akselerasjon *= 0.99;
 
         // Stop rotation when speed goes below threshold
@@ -144,6 +144,7 @@ QVector3D Balls::updateBall()
 
     QVector3D moveCamera = QVector3D(-(temp.x()-ballTransform.mPosition.x()), -(temp.y()-ballTransform.mPosition.y()), -(temp.z()-ballTransform.mPosition.z()));
     ballTransform.mPosition = temp;
+    qDebug() << "Temp er " << temp;
     return moveCamera;
 }
 
